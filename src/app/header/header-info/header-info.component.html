@@ -1,0 +1,30 @@
+<div class="info">
+    <div class="info-menu">
+        <div class="info-town">
+            <img src="../../../assets/pin.png" alt="location pin">
+            <span>Minsk</span>
+        </div>
+        <div class="info-payment">
+            <img (click)="showPayment()" src="../../../assets/arrow-down.png" alt="down arrow">
+            <span>Payment Methods</span>
+            <ul (mouseleave)="showPayment()" class="drop-menu" [class.disabled]="paymentTrigger">
+                <li>Оплата частями</li>
+                <li>Бонусная программа</li>
+                <li>Оплата</li>
+                <li>Доставка</li>
+                <li>Самовывоз</li>
+            </ul>
+        </div>
+        <div class="info-contacts">
+            <img (click)="showContacts()" src="../../../assets/arrow-down.png" alt="down arrow">
+            <span>Contact Us</span>
+            <ul (mouseleave)="showContacts()" class="drop-menu" [class.disabled]="contactTrigger">
+                <li>Оплата частями</li>
+                <li>Бонусная программа</li>
+                <li>Оплата</li>
+                <li>Доставка</li>
+                <li>Самовывоз</li>
+            </ul>
+        </div>
+    </div>
+</div>

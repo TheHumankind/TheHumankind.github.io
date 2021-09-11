@@ -1,0 +1,27 @@
+:host {
+    padding: 0px;
+    margin: 0px;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #F83F93;
+    box-sizing: border-box;
+
+    &-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 1024px;
+    }
+}
+
+.divider {
+    display: block;
+    width: 100%;
+}

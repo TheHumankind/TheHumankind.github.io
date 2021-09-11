@@ -1,0 +1,48 @@
+<div class="nav">
+    <h1 class="nav-logo">
+        Гоп-Shop
+    </h1>
+    <button class="button">
+        <span class="text">
+            catalog
+        </span>
+    </button>
+    <input class="input header-input" type="text">
+    <button class="button relative" (click)="switchAccount($event)" (mouseleave)="switchAccount($event)">
+        <span class="text">аккаунт</span>
+        <div class="drop-menu" [class.disabled]="accountMenu">
+            <div class="account-img">
+                <img src="../../../assets/account.png" alt="">
+            </div>
+            <button class="button">
+                <span class="text">
+                    Войти
+                </span>
+            </button>
+            <div class="option">
+                <img src="../../../assets/basket.png" alt="">
+                <div>Корзина</div>
+            </div>
+            <div class="option">
+                <img src="../../../assets/heart.png" alt="">
+                <div>Избранные товары</div>
+            </div>
+            <div class="option">
+                <img src="../../../assets/view.png" alt="">
+                <div>Просмотренные</div>
+            </div>
+            <div class="option">
+                <img src="../../../assets/shuffle.png" alt="">
+                <div>Списки сравнения</div>
+            </div>
+        </div>
+    </button>
+    <button class="button relative" (click)="switchBasket($event)" (mouseleave)="switchBasket($event)">
+        <span class="text">
+            Корзина
+        </span>
+        <div class="drop-menu" [class.disabled]="basketMenu">
+            adada
+        </div>
+    </button>
+</div>

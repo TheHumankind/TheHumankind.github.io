@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.info {
+    display: flex;
+    justify-content: flex-end;
+    width: 75vw;
+    font-size: 18px;
+
+    &-town, &-payment, &-contacts {
+        
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > img {
+            width: 12px;
+        }
+
+        & > span {
+            display: inline-block;
+            margin-left: 4px;
+        }
+    }
+
+    &-town {
+        min-width: auto;
+    }
+
+    &-menu {
+        display: flex;
+        justify-content: flex-end;
+        column-gap: 30px;
+        width: 30vw;
+        margin: 5px 0px;
+    }
+}

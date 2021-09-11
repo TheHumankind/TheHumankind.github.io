@@ -1,1 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Yanone+Kaffeesatz:wght@300;400&display=swap');
+@import '~@angular/material/theming';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.body {
+    margin: 0;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #FFBA73;
+    background-color: #f8f8f8;
+    cursor: default;
+    //font-family: 'Pacifico', cursive;
+}
+
+.ul-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.li-menu {
+    display: flex;
+    column-gap: 10px;
+}
+
+.carousel-slide {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(231, 231, 231);
+    box-sizing: border-box;
+
+    &-content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    padding: 5px 20px;
+    padding-top: 7px;
+    background-color: #B42E6B;
+    border: none;
+    border-radius: 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px rgba(#FFBA73, .5);
+
+    .text {
+        font-size: 18px;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        font-family: 'Yanone Kaffeesatz', sans-serif;
+        color: #FFBA73	;
+    }
+}
+
+.input {
+    height: 35px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 25px;
+    background-color: #ffe8f2;
+    box-shadow: 0px 0px 8px rgba(#FFBA73, .8);
+}
+
+.unselectable {
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;     
+    user-select: none;
+}
+
+.container {
+    display: flex;
+    column-gap: 20px;
+}
+
+.drop-menu {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 175px;
+    height: auto;
+    max-height: 0px;
+    margin: 0;
+    margin-bottom: 2px;
+    padding: 0;
+    border-radius: 10px;
+    list-style: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+    transform: translate(-50%, 101%);
+    transition: .2s all;
+    z-index: 1000;
+
+    & > li {
+
+        width: 84%;
+        margin-left: 10px;
+        margin-bottom: 4px;
+        border-bottom: 1px solid gainsboro;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+
+        &:last-child {
+            border-bottom: 0px;    
+        }
+    }
+}
+
+.disabled {
+    border: 1px solid gray;
+    max-height: 130px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

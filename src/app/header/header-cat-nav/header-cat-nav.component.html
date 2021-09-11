@@ -1,0 +1,11 @@
+<div class="categories">
+    <div class="categories-descr">
+        Наш хабар:
+    </div>
+    <div class="container">
+        <div class="unselectable categories-point" *ngFor="let item of cat$ | async" [attr.data-cat]="item.id">
+            {{item.name}}
+            <hr class="hr-decor">
+        </div>
+    </div>
+</div>
