@@ -1,3 +1,82 @@
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    width: 95%;
+    height: 87.5%;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #f8f8f8;
+    color: #FF8101;
+    border: 1px solid rgba(#000000, .1);
+    box-sizing: border-box;
+    cursor: default;
+
+    &:hover {
+        box-shadow: 0px 0px 23px -4px rgba(34, 60, 80, 0.2) inset;
+    }
+
+    &-image {
+        display: flex;
+        justify-content: space-around;
+        align-items: stretch;
+        column-gap: 40px;
+        width: 100%;
+        border-radius: 20px;
+
+        .price {
+            
+            font-size: 36px;
+
+            &-old {
+                font-size: 20px;
+                text-decoration: line-through;
+                color: red;
+            }
+
+            &-new {
+                color: rgb(107, 214, 0);
+            }
+        }
+
+        .h3 {
+            font-size: 48px;
+        }
+
+        .h4 {
+            font-size: 26px;
+        }
+
+        &-descr {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            min-width: 360px;
+            row-gap: 20px;
+            height: 100%;
+            margin-top: 7px;
+            box-sizing: border-box;
+
+            & > h3,h4 {
+                margin: 0;
+            }
+        }
+
+        .image-box {
+            padding: 10px;
+            border-radius: 20px;
+            box-sizing: border-box;
+
+            & > img {
+                width: 100%;
+                border-radius: 20px;
+            }
+        }
+    }
+}
+
 /*
     $mat-deep-purple
     $mat-indigo

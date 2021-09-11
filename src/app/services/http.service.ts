@@ -9,7 +9,11 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getShit() {
+  getCategories() {
     return this.http.get(`http://localhost:3004/categories`)
+  }
+
+  getGoods() {
+    return this.http.get(`http://localhost:3004/goods`)
   }
 }

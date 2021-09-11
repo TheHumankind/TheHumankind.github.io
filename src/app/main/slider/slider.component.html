@@ -1,21 +1,36 @@
 <mat-carousel
-    timings="250ms ease-in"
+    timings="500ms ease-in"
     [autoplay]="true"
     maxWidth="auto"
+    slideHeight="110%"
     color="primary"
-    height="auto"
-    size="false"
     [loop]="true"
     [hideArrows]="true"
     [hideIndicators]="false"
     [useKeyboard]="true"
     [useMouseWheel]="false"
     [maintainAspectRatio]="false"
-    orientation="ltr"
-    class="radius">
-    <mat-carousel-slide overlayColor="none"> 
-        <div class="pi">
-            class="pi"
+    orientation="ltr">
+    <mat-carousel-slide overlayColor="none" *ngFor="let item of slideItems$ | async" > 
+        <div class="slide">
+            <div class="slide-image">
+                <div class="image-box">
+                    <img src="{{item.imageUrls[0]}}" alt="">
+                </div>
+                <div class="slide-image-descr">
+                    <h3 class="h3">Только для вас</h3>
+                    <h4 class="h4">{{ item.name }}</h4>
+                    <div class="rating">
+                        С рейтингом: {{ item.rating }}
+                    </div>
+                    <div class="price">
+                        Всего за: <span class="price-new">{{ newPrice(item.price) }}</span> <sub class="price-old">{{item.price}}</sub>
+                    </div>
+                    <button class="button">
+                        <span class="text">Купить сие чудо</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </mat-carousel-slide>
 </mat-carousel>

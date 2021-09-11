@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { GoodsItem } from 'src/app/models/goodsItem';
+import { StoreState } from 'src/app/store/store.state';
 
 @Component({
   selector: 'app-slider',
@@ -6,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent {
+  
+  slideItems$: Observable<GoodsItem[]>
 
-  prop = 48;
+  constructor(public store: Store) {
+    this.slideItems$ = this.store.select(StoreState.mainSlider);
+  }
 
-  constructor() { }
+  newPrice(price: number) {
+    return Math.floor(price - (price * 0.05));
+  }
 
 }
