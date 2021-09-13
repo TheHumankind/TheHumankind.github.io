@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Categories } from "../models/categories";
+import { fillSlider } from "../models/fillMainSlider";
+import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { HttpService } from "../services/http.service";
 import { LoadItems } from "./store.action";
@@ -11,7 +13,8 @@ import { Store21 } from "./store.model";
     defaults: {
         categories: [],
         goods: {},
-        sliderItems: []
+        sliderItems: [],
+        popularItems: [[]]
     }
 })
 
@@ -32,20 +35,12 @@ export class StoreState {
                 const res = JSON.parse(JSON.stringify(result));
                 patchState({
                    goods: res
-                });    
-                const oldState = [...getState().sliderItems];  
-                for(let i = 0; i < Object.keys(res).length; i++) {
-                    const selectedCat = Math.floor(Math.random() * Object.keys(res).length);
-                    const cat = res[`${Object.keys(res)[selectedCat]}`];
-                    const selectedGood = Math.floor(Math.random() * Object.keys(cat).length);
-                    const selectedSubCat = cat[`${Object.keys(cat)[selectedGood]}`] as [];
-                    const newGood = selectedSubCat[Math.floor(Math.random() * selectedSubCat.length)] as GoodsItem;
-                    if (!oldState.includes(newGood)) { 
-                        oldState.push(newGood);
-                    }
-                }     
+                });
                 patchState({
-                    sliderItems: oldState
+                    sliderItems: fillSlider(JSON.stringify(res), [...getState().sliderItems])
+                });
+                patchState({
+                    popularItems: fillPopular(JSON.stringify(res), getState().categories),
                 });
             });
     }
@@ -58,5 +53,10 @@ export class StoreState {
     @Selector() 
     public static mainSlider(state: Store21): GoodsItem[] {
         return state.sliderItems;
+    }
+
+    @Selector() 
+    public static popularItems(state: Store21): [GoodsItem[]] {
+        return state.popularItems;
     }
 }

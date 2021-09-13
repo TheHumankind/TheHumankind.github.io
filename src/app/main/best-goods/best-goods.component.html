@@ -2,7 +2,7 @@
     <h3>Наш лучший товар</h3>
     <mat-carousel
     timings="500ms ease-in"
-    [autoplay]="true"
+    [autoplay]="false"
     maxWidth="auto"
     slideHeight="110%"
     color="primary"
@@ -13,8 +13,19 @@
     [useMouseWheel]="false"
     [maintainAspectRatio]="false"
     orientation="ltr">
-    <mat-carousel-slide overlayColor="none"> 
-        
+    <mat-carousel-slide overlayColor="none" *ngFor="let item of popular$ | async">
+        <div class="best__container-slide">
+            <div class="best-card" *ngFor="let subItem of item">
+                <div class="best__container-card">
+                    <div class="best-image">
+                        <img src="{{subItem.imageUrls[0]}}" alt="">
+                    </div>
+                    <div class="best-descr">
+                        <div class="best-header">{{subItem.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </mat-carousel-slide>
 </mat-carousel>
 </div>

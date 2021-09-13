@@ -5,4 +5,5 @@ export interface Store21 {
     categories: Categories[],
     goods: {},
     sliderItems: GoodsItem[]
+    popularItems: [GoodsItem[]]
 }
