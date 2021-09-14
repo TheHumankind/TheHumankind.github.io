@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { SliderComponent } from './slider/slider.component';
 import { BestGoodsComponent } from './best-goods/best-goods.component';
 import { ContainerComponent } from './container/container.component';
+import { CategoryPageComponent } from './category-page/category-page.component';
 
 
 
@@ -13,7 +14,8 @@ import { ContainerComponent } from './container/container.component';
     HomeComponent,
     SliderComponent,
     BestGoodsComponent,
-    ContainerComponent
+    ContainerComponent,
+    CategoryPageComponent
   ],
   imports: [
     MatCarouselModule.forRoot(),

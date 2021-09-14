@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { HttpService } from './services/http.service';
-import { LoadItems } from './store/store.action';
+import { LoadItems, SelectedCategory } from './store/store.action';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,8 @@ export class AppComponent {
 
   constructor(public httpService: HttpService, public store: Store) {
     this.store.dispatch([
-      new LoadItems()
-    ])
+      new LoadItems(),
+      new SelectedCategory('appliances')
+    ]);
   }
 }

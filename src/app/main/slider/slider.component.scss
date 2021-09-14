@@ -65,12 +65,19 @@
         }
 
         .image-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 350px;
+            width: 100%;
+            height: 350px;
             padding: 10px;
             border-radius: 20px;
             box-sizing: border-box;
 
             & > img {
-                width: 100%;
+                max-width: 350px;
+                max-height: 350px;
                 border-radius: 20px;
             }
         }

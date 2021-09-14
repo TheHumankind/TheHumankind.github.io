@@ -2,13 +2,13 @@
     <h1 class="nav-logo">
         Гоп-Shop
     </h1>
-    <button class="button">
+    <button class="button" (click)="bigVisibleMenu($event)">
         <span class="text">
-            catalog
+            Каталог
         </span>
     </button>
     <input class="input header-input" type="text">
-    <button class="button relative" (click)="switchAccount($event)" (mouseleave)="switchAccount($event)">
+    <button class="button relative" (click)="switchAccount($event)">
         <span class="text">аккаунт</span>
         <div class="drop-menu" [class.disabled]="accountMenu">
             <div class="account-img">
@@ -45,4 +45,6 @@
             adada
         </div>
     </button>
+    <app-big-menu class="fly" [class.invisible]="bigMenu" (mouseleave)="bigVisibleMenu($event)">
+    </app-big-menu>
 </div>

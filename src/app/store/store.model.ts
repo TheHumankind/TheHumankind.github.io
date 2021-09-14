@@ -3,7 +3,10 @@ import { GoodsItem } from "../models/goodsItem";
 
 export interface Store21 {
     categories: Categories[],
+    selectedCategory: {},
     goods: {},
     sliderItems: GoodsItem[]
-    popularItems: [GoodsItem[]]
+    popularItems: [GoodsItem[]],
+    pageData: GoodsItem[],
+    pageNumber: number,
 }

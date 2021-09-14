@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { LoadItems } from 'src/app/store/store.action';
+import { LoadItems, SelectedCategory } from 'src/app/store/store.action';
 
 @Component({
   selector: 'app-header-nav',
@@ -12,6 +12,8 @@ export class HeaderNavComponent {
   accountMenu = false;
 
   basketMenu = false;
+
+  bigMenu = false;
 
   constructor(public store: Store) { }
 
@@ -27,5 +29,12 @@ export class HeaderNavComponent {
       return;
     }
     this.basketMenu = !this.basketMenu;
+  }
+
+  bigVisibleMenu(event: Event) {
+    if(event.type === 'mouseleave' && this.bigMenu === false) {
+      return;
+    }
+    this.bigMenu = !this.bigMenu;
   }
 }

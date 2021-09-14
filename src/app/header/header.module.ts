@@ -4,6 +4,7 @@ import { HeaderContainerComponent } from './header-container/header-container.co
 import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { HeaderInfoComponent } from './header-info/header-info.component';
 import { HeaderCatNavComponent } from './header-cat-nav/header-cat-nav.component';
+import { BigMenuComponent } from './big-menu/big-menu.component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { HeaderCatNavComponent } from './header-cat-nav/header-cat-nav.component
     HeaderContainerComponent,
     HeaderNavComponent,
     HeaderInfoComponent,
-    HeaderCatNavComponent
+    HeaderCatNavComponent,
+    BigMenuComponent
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { HeaderCatNavComponent } from './header-cat-nav/header-cat-nav.component
     HeaderContainerComponent,
     HeaderNavComponent,
     HeaderInfoComponent,
-    HeaderCatNavComponent
+    HeaderCatNavComponent,
+    BigMenuComponent
   ]
 })
 export class HeaderModule { }
