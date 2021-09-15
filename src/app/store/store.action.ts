@@ -13,3 +13,7 @@ export class UploadCurrentPage {
     constructor(public pageNumber: number, public category: string, public subcategory: string) {}
     static readonly type = '[STORE] Get goods for page';
 }
+
+export class UploadMore {
+    static readonly type = '[STORE] Get aditional page goods';
+}

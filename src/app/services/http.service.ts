@@ -18,6 +18,6 @@ export class HttpService {
   }
 
   getGoodsFromPage(pageNumber: number, category: string, subcategory: string) {
-    return this.http.get(`http://localhost:3004/goods/category/${category}/${subcategory}?start=${pageNumber}&count=9`)
+    return this.http.get(`http://localhost:3004/goods/category/${category}/${subcategory}?start=${pageNumber}&count=10`)
   }
 }

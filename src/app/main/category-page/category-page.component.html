@@ -1,1 +1,46 @@
-<p>category-page works!</p>
+<div class="page">   
+    <h2> {{currentCat$ | async}} </h2>
+    <div> {{(currentSubCat$ | async)}}</div>
+    <div class="page-items__container">
+        <div class="page-item" *ngFor="let item of currentGoods$ | async">
+            <div class="page-item__availability" title="{{avalible(item.availableAmount)}}" [style.background-color]="countOfHabar(item.availableAmount)">
+            </div>
+            <div class="page-item__img">
+                <img src="{{item.imageUrls[0]}}" alt="">
+            </div>
+            <div class="page-item__name">
+                {{ item.name }}
+            </div>
+            <div>
+                {{ item.price }} руб.
+            </div>
+            <div class="page-item__rating">
+                <img src="{{firstStar(item.rating)}}" alt="">
+                <img src="{{secondStar(item.rating)}}" alt="">
+                <img src="{{thirdStar(item.rating)}}" alt="">
+                <img src="{{fourStar(item.rating)}}" alt="">
+                <img src="{{fiveStar(item.rating)}}" alt="">
+            </div>
+            <button class="button page-item__bascket">
+                <span class="text">
+                    В схрон
+                </span>
+            </button>
+            <button class="button page-item__love">
+                <span class="text">
+                    В любимое
+                </span>
+            </button>
+            <button class="button page-item__love">
+                <span class="text">
+                    Подробнее
+                </span>
+            </button>
+        </div>
+    </div>
+    <button class="button" (click)="uploadMoreGoods()"> 
+        <span class="text">
+            Загрузить еще
+        </span>
+    </button>
+</div>

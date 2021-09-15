@@ -8,5 +8,9 @@ export interface Store21 {
     sliderItems: GoodsItem[]
     popularItems: [GoodsItem[]],
     pageData: GoodsItem[],
+    currentCat: string,
+    currentSubCat: string,
+    currentCatName: string,
+    currentSubCatName: string,
     pageNumber: number,
 }

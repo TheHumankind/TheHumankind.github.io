@@ -19,6 +19,9 @@ export class BigMenuComponent implements OnInit {
   constructor(public store: Store) { 
     this.categories$ = this.store.select(StoreState.categories);
     this.sel = this.store.selectSnapshot(StoreState.selectCategory);
+    this.store.dispatch([
+      new UploadCurrentPage(0, 'appliances', 'refrigerators'),
+    ])
   }
 
   ngOnInit() {

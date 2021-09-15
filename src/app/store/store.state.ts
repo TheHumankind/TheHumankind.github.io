@@ -5,7 +5,7 @@ import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { HttpService } from "../services/http.service";
-import { LoadItems, SelectedCategory, UploadCurrentPage } from "./store.action";
+import { LoadItems, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -17,6 +17,10 @@ import { Store21 } from "./store.model";
         sliderItems: [],
         popularItems: [[]],
         pageData: [],
+        currentCat: '',
+        currentSubCat: '',
+        currentCatName: '',
+        currentSubCatName: '',
         pageNumber: 0
     }
 })
@@ -63,16 +67,48 @@ export class StoreState {
         }
     }
 
+    @Action(UploadMore)
+    uploadMore({ patchState, getState }: StateContext<Store21>) {
+        const pageNumber = getState().pageNumber;
+        this.http.getGoodsFromPage(getState().pageNumber, getState().currentCat, getState().currentSubCat)
+            .subscribe((data) => {
+                const pageData = getState().pageData;
+                const newData = data as Array<GoodsItem>;
+                patchState({
+                    pageNumber: pageNumber + newData.length
+                });
+                patchState({
+                    pageData: [...pageData, ...newData]
+                })
+            });
+    }
+
     @Action(UploadCurrentPage)
     uploadCurrentPage({ patchState, getState }: StateContext<Store21>, { pageNumber, category, subcategory }: UploadCurrentPage) {
         this.http.getGoodsFromPage(pageNumber, category, subcategory)
             .subscribe(data => {
                 const arr = data as Array<GoodsItem>;
-                console.log(arr);
                 patchState({
+                    currentCat: category,
+                    currentSubCat: subcategory,
                     pageData: arr
-                })
-
+                });
+                getState().categories.some((e) => {
+                    if(e.id === category) {
+                        patchState({
+                            currentCatName: e.name,
+                        })
+                        e.subCategories.some((subEl) => {
+                            if (subEl.id === subcategory) {
+                                patchState({
+                                    currentSubCatName: subEl.name
+                                })
+                                return;
+                            }
+                        });
+                        return;
+                    }
+                });
             });
     }
 
@@ -99,5 +135,30 @@ export class StoreState {
     @Selector() 
     public static pageNumber(state: Store21): number {
         return state.pageNumber;
+    }
+
+    @Selector() 
+    public static pageData(state: Store21): GoodsItem[] {
+        return state.pageData;
+    }
+
+    @Selector() 
+    public static currentCategory(state: Store21): string {
+        return state.currentCat;
+    }
+
+    @Selector() 
+    public static currentSubCat(state: Store21): string {
+        return state.currentSubCat;
+    }
+
+    @Selector() 
+    public static currentCategoryName(state: Store21): string {
+        return state.currentCatName;
+    }
+
+    @Selector() 
+    public static currentSubCatName(state: Store21): string {
+        return state.currentSubCatName;
     }
 }

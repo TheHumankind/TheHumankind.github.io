@@ -6,6 +6,9 @@ import { SliderComponent } from './slider/slider.component';
 import { BestGoodsComponent } from './best-goods/best-goods.component';
 import { ContainerComponent } from './container/container.component';
 import { CategoryPageComponent } from './category-page/category-page.component';
+import { PageContainerComponent } from './page-container/page-container.component';
+import { PageItemComponent } from './page-item/page-item.component';
+import { AboutGoodComponent } from './about-good/about-good.component';
 
 
 
@@ -15,7 +18,10 @@ import { CategoryPageComponent } from './category-page/category-page.component';
     SliderComponent,
     BestGoodsComponent,
     ContainerComponent,
-    CategoryPageComponent
+    CategoryPageComponent,
+    PageContainerComponent,
+    PageItemComponent,
+    AboutGoodComponent
   ],
   imports: [
     MatCarouselModule.forRoot(),
