@@ -5,7 +5,7 @@ import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { HttpService } from "../services/http.service";
-import { LoadItems, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
+import { CurrentGood, LoadItems, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -17,6 +17,7 @@ import { Store21 } from "./store.model";
         sliderItems: [],
         popularItems: [[]],
         pageData: [],
+        currentPageItem: {},
         currentCat: '',
         currentSubCat: '',
         currentCatName: '',
@@ -36,22 +37,22 @@ export class StoreState {
                 patchState({
                     categories: result
                 });
-            });
-        this.http.getGoods()
-            .subscribe((result: any) => {
-                const res = JSON.parse(JSON.stringify(result));
-                patchState({
-                   goods: res
-                });
-                patchState({
-                    selectedCategory: getState().categories[0]
-                })
-                patchState({
-                    sliderItems: fillSlider(JSON.stringify(res), [...getState().sliderItems])
-                });
-                patchState({
-                    popularItems: fillPopular(JSON.stringify(res), getState().categories),
-                });
+                this.http.getGoods()
+                    .subscribe((subResult: any) => {
+                        const res = JSON.parse(JSON.stringify(subResult));
+                        patchState({
+                        goods: res
+                        });
+                        patchState({
+                            selectedCategory: getState().categories[0]
+                        })
+                        patchState({
+                            sliderItems: fillSlider(JSON.stringify(res), [...getState().sliderItems])
+                        });
+                        patchState({
+                            popularItems: fillPopular(JSON.stringify(res), getState().categories),
+                        });
+                    });
             });
     }
 
@@ -85,13 +86,28 @@ export class StoreState {
 
     @Action(UploadCurrentPage)
     uploadCurrentPage({ patchState, getState }: StateContext<Store21>, { pageNumber, category, subcategory }: UploadCurrentPage) {
+        patchState({
+            pageNumber: 0
+        });
         this.http.getGoodsFromPage(pageNumber, category, subcategory)
             .subscribe(data => {
                 const arr = data as Array<GoodsItem>;
                 patchState({
                     currentCat: category,
                     currentSubCat: subcategory,
-                    pageData: arr
+                    pageData: arr,
+                });
+                if (arr.length < 10 && getState().pageNumber === 0) {
+                    patchState({
+                        pageNumber: 10,
+                    });
+                } else {
+                    patchState({
+                        pageNumber: getState().pageNumber + arr.length,
+                    });
+                }
+                patchState({
+                    currentPageItem: arr[0],
                 });
                 getState().categories.some((e) => {
                     if(e.id === category) {
@@ -110,6 +126,21 @@ export class StoreState {
                     }
                 });
             });
+            
+    }
+
+    @Action(ResetPages)
+    resetPages({ patchState, getState }: StateContext<Store21>) {
+        patchState({
+            pageNumber: 0
+        });
+    }
+
+    @Action(CurrentGood)
+    currentGood({ patchState, getState }: StateContext<Store21>, { item }: CurrentGood){
+        patchState({
+            currentPageItem: item,
+        })
     }
 
     @Selector() 
@@ -160,5 +191,11 @@ export class StoreState {
     @Selector() 
     public static currentSubCatName(state: Store21): string {
         return state.currentSubCatName;
+    }
+
+    @Selector() 
+    public static currentPageItem(state: Store21): GoodsItem[] {
+        const item = state.currentPageItem as GoodsItem;
+        return [item];
     }
 }

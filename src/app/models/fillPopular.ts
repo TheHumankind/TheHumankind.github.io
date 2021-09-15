@@ -22,7 +22,7 @@ export function fillPopular(res: string, categories: Categories[]) {
     for(let i = 0; i < 3; i++) {
         const subPopular: GoodsItem[] = []
         for(let j = 0; j < 6; j++) {
-            const selected = Math.floor(Math.random() * allGoodsInArr.length);
+            let selected = Math.floor(Math.random() * (allGoodsInArr.length));
             subPopular.push(allGoodsInArr[selected]);
             allGoodsInArr.splice(selected, 1);
         }

@@ -1,4 +1,5 @@
 import { Categories } from "../models/categories";
+import { GoodsItem } from "../models/goodsItem";
 
 export class LoadItems {
     static readonly type = '[STORE] Items';
@@ -16,4 +17,13 @@ export class UploadCurrentPage {
 
 export class UploadMore {
     static readonly type = '[STORE] Get aditional page goods';
+}
+
+export class CurrentGood {
+    constructor(public item: GoodsItem) {}
+    static readonly type = '[STORE] Current Goods';
+}
+
+export class ResetPages {
+    static readonly type = '[STORE] Reset pages number';
 }

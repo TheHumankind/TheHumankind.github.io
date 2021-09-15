@@ -21,4 +21,14 @@ export class SliderComponent {
     return Math.floor(price - (price * 0.05));
   }
 
+  checkUrl(url: string) {
+    let result = '';
+    if (url === '' || undefined) {
+      result = '../../../assets/unknow-img.png';
+    } else {
+      result = url;
+    }
+    return result;
+  }
+
 }

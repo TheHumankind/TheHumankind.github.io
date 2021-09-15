@@ -17,4 +17,14 @@ export class BestGoodsComponent {
     this.popular$ = this.store.select(StoreState.popularItems);
   }
 
+  checkUrl(url: string) {
+    let result = '';
+    if (url === '') {
+      result = '../../../assets/unknow-img.png';
+    } else {
+      result = url;
+    }
+    return result;
+  }
+
 }

@@ -1,1 +1,36 @@
-<p>page-item works!</p>
+<div *ngFor="let item of pageItem$ | async" class="good">
+    <div class="good-path">
+        <span class="path" (click)="backToLead()">
+            Главная
+        </span>
+        <span>
+            >
+        </span>
+        <span class="path">
+            {{ currentCat$ | async }}
+        </span>
+        <span>
+            >
+        </span>
+        <span class="path" (click)="backToCat()">
+            {{ currentSubCat$ | async }}
+        </span>
+        <span>
+            >
+        </span>
+        <span>
+            {{ item.id }}
+        </span>
+    </div>
+    <h2 class="good-header">
+        {{ item.name }}
+    </h2>
+    <div>
+        <h3 class="good-header__descr">
+            Описание:
+        </h3>
+        <p class="good-descr">
+            {{ item.description }}
+        </p>
+    </div>
+</div>

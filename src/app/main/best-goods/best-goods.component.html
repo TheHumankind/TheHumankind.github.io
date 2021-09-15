@@ -18,7 +18,7 @@
             <div class="best-card" *ngFor="let subItem of item">
                 <div class="best__container-card">
                     <div class="best-image">
-                        <img src="{{subItem.imageUrls[0]}}" alt="">
+                        <img src="{{checkUrl(subItem.imageUrls[0])}}" alt="">
                     </div>
                     <div class="best-descr">
                         <div class="best-header">{{subItem.name}}</div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
-import { UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -28,7 +29,7 @@ export class CategoryPageComponent {
 
   currentSubCat$: Observable<string>;
 
-  constructor(public store: Store) { 
+  constructor(public store: Store, public router: Router) { 
     this.currentGoods$ = this.store.select(StoreState.pageData);
     this.currentCat$ = this.store.select(StoreState.currentCategoryName);
     this.currentSubCat$ = this.store.select(StoreState.currentSubCatName);
@@ -101,6 +102,14 @@ export class CategoryPageComponent {
   uploadMoreGoods() {
     this.store.dispatch([
       new UploadMore()
+    ])
+  }
+
+  toItem(id: string, item: GoodsItem) {
+    const link = `categories/${id}`;
+    this.router.navigate([link]);
+    this.store.dispatch([
+      new CurrentGood(item)
     ])
   }
 }

@@ -3,7 +3,8 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Categories } from 'src/app/models/categories';
 import { StoreState } from 'src/app/store/store.state';
-import { SelectedCategory, UploadCurrentPage } from 'src/app/store/store.action';
+import { ResetPages, SelectedCategory, UploadCurrentPage } from 'src/app/store/store.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-big-menu',
@@ -16,7 +17,7 @@ export class BigMenuComponent implements OnInit {
 
   sel: Categories;
 
-  constructor(public store: Store) { 
+  constructor(public store: Store, public router: Router) { 
     this.categories$ = this.store.select(StoreState.categories);
     this.sel = this.store.selectSnapshot(StoreState.selectCategory);
     this.store.dispatch([
@@ -39,9 +40,10 @@ export class BigMenuComponent implements OnInit {
 
   toCategory(subCat: string) {
     const clickObject = this.store.selectSnapshot(StoreState.selectCategory);
-    const currentPage = this.store.selectSnapshot(StoreState.pageNumber);
+    this.router.navigate(['categories'])
     this.store.dispatch([
-      new UploadCurrentPage(currentPage, clickObject.id, subCat),
+      new ResetPages(),
+      new UploadCurrentPage(0, clickObject.id, subCat),
     ])
   }
 }

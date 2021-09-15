@@ -10,14 +10,14 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getCategories() {
-    return this.http.get(`http://localhost:3004/categories`)
+    return this.http.get(`https://angular-shops.herokuapp.com/categories`);
   }
 
   getGoods() {
-    return this.http.get(`http://localhost:3004/goods`)
+    return this.http.get(`https://angular-shops.herokuapp.com/goods`);
   }
 
   getGoodsFromPage(pageNumber: number, category: string, subcategory: string) {
-    return this.http.get(`http://localhost:3004/goods/category/${category}/${subcategory}?start=${pageNumber}&count=10`)
+    return this.http.get(`https://angular-shops.herokuapp.com/goods/category/${category}/${subcategory}?start=${pageNumber}&count=10`);
   }
 }
