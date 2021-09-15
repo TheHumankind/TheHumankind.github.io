@@ -105,6 +105,16 @@ export class CategoryPageComponent {
     ])
   }
 
+  checkUrl(url: string) {
+    let result = '';
+    if (!url) {
+      result = '../../../assets/unknow-img.png';
+    } else {
+      result = url;
+    }
+    return result;
+  }
+
   toItem(id: string, item: GoodsItem) {
     const link = `categories/${id}`;
     this.router.navigate([link]);

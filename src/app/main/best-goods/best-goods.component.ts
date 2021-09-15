@@ -19,7 +19,7 @@ export class BestGoodsComponent {
 
   checkUrl(url: string) {
     let result = '';
-    if (url === '') {
+    if (!url) {
       result = '../../../assets/unknow-img.png';
     } else {
       result = url;

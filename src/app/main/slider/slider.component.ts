@@ -23,7 +23,7 @@ export class SliderComponent {
 
   checkUrl(url: string) {
     let result = '';
-    if (url === '' || undefined) {
+    if (!url) {
       result = '../../../assets/unknow-img.png';
     } else {
       result = url;

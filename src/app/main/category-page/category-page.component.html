@@ -6,7 +6,7 @@
             <div class="page-item__availability" title="{{avalible(item.availableAmount)}}" [style.background-color]="countOfHabar(item.availableAmount)">
             </div>
             <div class="page-item__img">
-                <img src="checkUrl(item.imageUrls[0])" alt="">
+                <img src="{{checkUrl(item.imageUrls[0])}}" alt="">
             </div>
             <div class="page-item__name">
                 {{ item.name }}
