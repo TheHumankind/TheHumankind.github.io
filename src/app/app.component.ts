@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (this.store.selectSnapshot(StoreState.currentCategoryName) === '') {
-      this.router.navigate(['']);
+      this.router.navigate(['login']);
     }
     this.store.dispatch([
       new LoadItems(),

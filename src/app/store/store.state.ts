@@ -5,7 +5,7 @@ import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { HttpService } from "../services/http.service";
-import { CurrentGood, LoadItems, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
+import { CurrentGood, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -22,7 +22,8 @@ import { Store21 } from "./store.model";
         currentSubCat: '',
         currentCatName: '',
         currentSubCatName: '',
-        pageNumber: 0
+        pageNumber: 0,
+        userData: {}
     }
 })
 
@@ -130,17 +131,25 @@ export class StoreState {
     }
 
     @Action(ResetPages)
-    resetPages({ patchState, getState }: StateContext<Store21>) {
+    resetPages({ patchState }: StateContext<Store21>) {
         patchState({
             pageNumber: 0
         });
     }
 
     @Action(CurrentGood)
-    currentGood({ patchState, getState }: StateContext<Store21>, { item }: CurrentGood){
+    currentGood({ patchState }: StateContext<Store21>, { item }: CurrentGood){
         patchState({
             currentPageItem: item,
         })
+    }
+
+    @Action(LoginUser)
+    loginUser({ patchState, getState }: StateContext<Store21>, { login, password }: LoginUser) {
+        this.http.getUserToken(login, password)
+            .subscribe((res) => {
+                console.log(res);
+            });
     }
 
     @Selector() 

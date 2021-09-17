@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, VERSION } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -19,10 +19,13 @@ export class PageItemComponent implements OnInit {
 
   currentSubCat$: Observable<string>;
 
+  img: any;
+
   constructor(public store: Store, public router: Router) { 
     this.pageItem$ = this.store.select(StoreState.currentPageItem);
     this.currentCat$ = this.store.select(StoreState.currentCategoryName);
     this.currentSubCat$ = this.store.select(StoreState.currentSubCatName);
+    this.img = '../../../assets/unknow-img.png';
   }
 
   ngOnInit() {
@@ -35,6 +38,10 @@ export class PageItemComponent implements OnInit {
 
   backToLead() {
     this.router.navigate(['']);
+  }
+
+  changeBigImg(image: string) {
+      this.img = image;
   }
 
 }

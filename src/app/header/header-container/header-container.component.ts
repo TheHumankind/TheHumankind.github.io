@@ -7,12 +7,9 @@ import { LoadItems } from 'src/app/store/store.action';
   templateUrl: './header-container.component.html',
   styleUrls: ['./header-container.component.scss']
 })
-export class HeaderContainerComponent implements OnInit {
+export class HeaderContainerComponent {
 
   constructor(public store: Store) {
-  }
-
-  ngOnInit(): void {
   }
 
 }

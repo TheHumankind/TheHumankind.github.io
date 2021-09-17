@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { LoadItems, SelectedCategory } from 'src/app/store/store.action';
 
@@ -15,7 +16,7 @@ export class HeaderNavComponent {
 
   bigMenu = false;
 
-  constructor(public store: Store) { }
+  constructor(public store: Store, public router: Router) { }
 
   switchAccount(event: Event) {
     if (event.type === 'mouseleave' && this.accountMenu === false) {
@@ -36,5 +37,10 @@ export class HeaderNavComponent {
       return;
     }
     this.bigMenu = !this.bigMenu;
+  }
+
+  toLogin() {
+    console.log('click');
+    this.router.navigate(['login']);
   }
 }

@@ -9,6 +9,8 @@ import { CategoryPageComponent } from './category-page/category-page.component';
 import { PageContainerComponent } from './page-container/page-container.component';
 import { PageItemComponent } from './page-item/page-item.component';
 import { AboutGoodComponent } from './about-good/about-good.component';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -21,17 +23,20 @@ import { AboutGoodComponent } from './about-good/about-good.component';
     CategoryPageComponent,
     PageContainerComponent,
     PageItemComponent,
-    AboutGoodComponent
+    AboutGoodComponent,
+    LoginComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),
+    FormsModule,
     CommonModule
   ],
   exports: [
     HomeComponent,
     SliderComponent,
     BestGoodsComponent,
-    ContainerComponent
+    ContainerComponent,
+    LoginComponent
   ]
 })
 export class MainModule { }

@@ -1,5 +1,6 @@
 import { Categories } from "../models/categories";
 import { GoodsItem } from "../models/goodsItem";
+import { UserData } from "../models/userData";
 
 export interface Store21 {
     categories: Categories[],
@@ -9,6 +10,7 @@ export interface Store21 {
     popularItems: [GoodsItem[]],
     pageData: GoodsItem[],
     currentPageItem: {} | GoodsItem,
+    userData: {} | UserData,
     currentCat: string,
     currentSubCat: string,
     currentCatName: string,
