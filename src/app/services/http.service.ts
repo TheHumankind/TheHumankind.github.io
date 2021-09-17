@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { UserToken } from '../models/userToken';
 
 @Injectable({
@@ -35,6 +35,23 @@ export class HttpService {
       token: token
     }
     return this.http.get(`https://angular-shops.herokuapp.com/users/`, {params});
+  }
+
+  postUserFavor(id: string, userToken: string) {
+    const data = {
+      id: id
+    }
+    this.http.post(`https:/angular-shops.herokuapp.com/users/favorites`, data, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
+    }).subscribe((res) => {
+      console.log(res);
+    })
+  }
+
+  getOneGood(id: string) {
+    return this.http.get(`https://angular-shops.herokuapp.com/goods/item/${id}`);
   }
 
 }

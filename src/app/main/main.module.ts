@@ -11,6 +11,7 @@ import { PageItemComponent } from './page-item/page-item.component';
 import { AboutGoodComponent } from './about-good/about-good.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 
@@ -25,6 +26,7 @@ import { LoginComponent } from './login/login.component';
     PageItemComponent,
     AboutGoodComponent,
     LoginComponent,
+    FavoritesComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),
@@ -36,7 +38,8 @@ import { LoginComponent } from './login/login.component';
     SliderComponent,
     BestGoodsComponent,
     ContainerComponent,
-    LoginComponent
+    LoginComponent,
+    FavoritesComponent
   ]
 })
 export class MainModule { }

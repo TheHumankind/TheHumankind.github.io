@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { LoadItems, SelectedCategory } from 'src/app/store/store.action';
+import { Observable } from 'rxjs';
+import { UserData } from 'src/app/models/userData';
+import { GetUserData, LoadItems, SelectedCategory } from 'src/app/store/store.action';
+import { StoreState } from 'src/app/store/store.state';
 
 @Component({
   selector: 'app-header-nav',
@@ -16,7 +19,11 @@ export class HeaderNavComponent {
 
   bigMenu = false;
 
-  constructor(public store: Store, public router: Router) { }
+  userData$: Observable<UserData>;
+
+  constructor(public store: Store, public router: Router) { 
+    this.userData$ = this.store.select(StoreState.selectUserData);
+  }
 
   switchAccount(event: Event) {
     if (event.type === 'mouseleave' && this.accountMenu === false) {
@@ -40,7 +47,13 @@ export class HeaderNavComponent {
   }
 
   toLogin() {
-    console.log('click');
     this.router.navigate(['login']);
+  }
+
+  toFavor() {
+    this.router.navigate(['favorites']);
+    this.store.dispatch([
+      new GetUserData()
+    ])
   }
 }

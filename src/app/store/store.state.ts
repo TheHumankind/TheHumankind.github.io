@@ -4,8 +4,10 @@ import { Categories } from "../models/categories";
 import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
+import { UserData } from "../models/userData";
+import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CurrentGood, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
+import { CurrentGood, GetAllFavorData, GetUserData, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -23,7 +25,8 @@ import { Store21 } from "./store.model";
         currentCatName: '',
         currentSubCatName: '',
         pageNumber: 0,
-        userData: {}
+        userData: {},
+        favorUserItems: []
     }
 })
 
@@ -145,16 +148,68 @@ export class StoreState {
     }
 
     @Action(LoginUser)
-    loginUser({ patchState, getState }: StateContext<Store21>, { login, password }: LoginUser) {
+    loginUser({ patchState }: StateContext<Store21>, { login, password }: LoginUser) {
         this.http.getUserToken(login, password)
             .subscribe((res) => {
-                console.log(res);
+                const token = res as UserToken;
+                window.localStorage.setItem('userToken', token.token);
+                const userToken = window.localStorage.getItem('userToken');
+                if (!userToken) return;
+                this.http.getUserInfo(userToken)
+                    .subscribe((response) => {
+                        const userData = response as UserData[];
+                        patchState({
+                            userData: userData[0]
+                        })
+                        console.log(userData);
+                    })
             });
+    }
+
+    @Action(GetUserData)
+    getUserData({ patchState, dispatch }: StateContext<Store21>) {
+        const userToken = window.localStorage.getItem('userToken');
+        if (!userToken) return;
+        this.http.getUserInfo(userToken)
+            .subscribe((response) => {
+                const userData = response as UserData[];
+                patchState({
+                    userData: userData[0]
+                })
+                dispatch([
+                    new GetAllFavorData()
+                ])
+            })
+    }
+
+    @Action(GetAllFavorData)
+    getAllFavorData({ patchState, getState }: StateContext<Store21>) {
+        const getFavorId = getState().userData as UserData;
+        patchState({
+            favorUserItems: []
+        })
+        getFavorId.favorites.forEach((e) => {
+            this.http.getOneGood(e)
+                .subscribe((res) => {
+                    const newItem = res as GoodsItem;
+                    const oldFavorGoods = getState().favorUserItems as GoodsItem[];
+                    const newFavorGoods = [...oldFavorGoods, newItem];
+                    patchState({
+                        favorUserItems: newFavorGoods
+                    })
+                });
+        })
     }
 
     @Selector() 
     public static categories(state: Store21): Categories[] {
         return state.categories;
+    }
+
+    @Selector() 
+    public static selectUserData(state: Store21): UserData {
+        const userData = state.userData as UserData
+        return userData;
     }
 
     @Selector() 
@@ -206,5 +261,11 @@ export class StoreState {
     public static currentPageItem(state: Store21): GoodsItem[] {
         const item = state.currentPageItem as GoodsItem;
         return [item];
+    }
+
+    @Selector() 
+    public static favorItems(state: Store21): GoodsItem[] {
+        const item = state.favorUserItems as GoodsItem[];
+        return item;
     }
 }

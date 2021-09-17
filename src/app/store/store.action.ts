@@ -28,6 +28,14 @@ export class LoginUser {
     static readonly type = '[STORE] Login User';
 }
 
+export class GetUserData {
+    static readonly type = '[STORE] Get user data';
+}
+
+export class GetAllFavorData {
+    static readonly type = '[STORE] Get all favor data';
+}
+
 export class ResetPages {
     static readonly type = '[STORE] Reset pages number';
 }

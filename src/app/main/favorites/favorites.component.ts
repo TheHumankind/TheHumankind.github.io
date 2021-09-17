@@ -4,15 +4,17 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, GetUserData, UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
-  selector: 'app-category-page',
-  templateUrl: './category-page.component.html',
-  styleUrls: ['./category-page.component.scss']
+  selector: 'app-favorites',
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.scss']
 })
-export class CategoryPageComponent {
+export class FavoritesComponent {
+
+  favorItems$: Observable<GoodsItem[]>
 
   currentFavorColor = '';
 
@@ -33,10 +35,11 @@ export class CategoryPageComponent {
   currentSubCat$: Observable<string>;
 
   constructor(public store: Store, public router: Router, public http: HttpService) { 
+    this.favorItems$ = this.store.select(StoreState.favorItems);
     this.currentGoods$ = this.store.select(StoreState.pageData);
     this.currentCat$ = this.store.select(StoreState.currentCategoryName);
     this.currentSubCat$ = this.store.select(StoreState.currentSubCatName);
-  }  
+  }
 
   firstStar(rating: number) {
     if (rating >= 1) {
@@ -134,4 +137,5 @@ export class CategoryPageComponent {
     } 
     this.http.postUserFavor(id, token);
   }
+
 }

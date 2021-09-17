@@ -11,8 +11,8 @@
             <div class="page-item__name">
                 {{ item.name }}
             </div>
-            <div>
-                {{ item.price }} руб.
+            <div class="page-item__price">
+                Цена: {{ item.price }} руб.
             </div>
             <div class="page-item__rating">
                 <img src="{{firstStar(item.rating)}}" alt="">
@@ -21,21 +21,19 @@
                 <img src="{{fourStar(item.rating)}}" alt="">
                 <img src="{{fiveStar(item.rating)}}" alt="">
             </div>
-            <button class="button page-item__bascket">
-                <span class="text">
-                    В схрон
-                </span>
-            </button>
-            <button class="button page-item__love">
-                <span class="text">
-                    В любимое
-                </span>
-            </button>
-            <button class="button page-item__love" (click)="toItem(item.id, item)">
-                <span class="text">
-                    Подробнее
-                </span>
-            </button>
+            <div class="page-item__footer">
+                <button class="button page-item__bascket">
+                    <img src="../../../assets/shopping-cart.svg" alt="">
+                </button>
+                <button class="button page-item__love" (click)="isFavor(item.id)"> 
+                        <img src="../../../assets/heart.svg" alt="">
+                </button>
+                <button class="button page-item__more" (click)="toItem(item.id, item)">
+                    <span class="text">
+                        Подробнее
+                    </span>
+                </button>
+            </div>
         </div>
     </div>
     <button class="button" (click)="uploadMoreGoods()"> 

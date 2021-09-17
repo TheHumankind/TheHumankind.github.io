@@ -11,6 +11,7 @@ export interface Store21 {
     pageData: GoodsItem[],
     currentPageItem: {} | GoodsItem,
     userData: {} | UserData,
+    favorUserItems: GoodsItem[],
     currentCat: string,
     currentSubCat: string,
     currentCatName: string,

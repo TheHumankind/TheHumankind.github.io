@@ -1,9 +1,9 @@
 export interface UserData {
-    firstName: string,
-    lastName: string,
-    token: string,
-    login: string,
-    password: string,
+    firstName: '',
+    lastName: '',
+    token: '',
+    login: '',
+    password: '',
     cart: [],
     favorites: [],
     orders: []

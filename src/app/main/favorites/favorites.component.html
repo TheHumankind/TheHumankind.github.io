@@ -1,0 +1,37 @@
+<div class="favor">
+    <div class="favor-items__container">
+        <div class="favor-item" *ngFor="let item of favorItems$ | async">
+            <div class="favor-item__availability" title="{{avalible(item.availableAmount)}}" [style.background-color]="countOfHabar(item.availableAmount)">
+            </div>
+            <div class="favor-item__img">
+                <img src="{{checkUrl(item.imageUrls[0])}}" alt="">
+            </div>
+            <div class="favor-item__name">
+                {{ item.name }}
+            </div>
+            <div class="favor-item__price">
+                Цена: {{ item.price }} руб.
+            </div>
+            <div class="favor-item__rating">
+                <img src="{{firstStar(item.rating)}}" alt="">
+                <img src="{{secondStar(item.rating)}}" alt="">
+                <img src="{{thirdStar(item.rating)}}" alt="">
+                <img src="{{fourStar(item.rating)}}" alt="">
+                <img src="{{fiveStar(item.rating)}}" alt="">
+            </div>
+            <div class="favor-item__footer">
+                <button class="button favor-item__bascket">
+                    <img src="../../../assets/shopping-cart.svg" alt="">
+                </button>
+                <button class="button favor-item__love" (click)="isFavor(item.id)"> 
+                        <img src="../../../assets/heart.svg" alt="">
+                </button>
+                <button class="button favor-item__more" (click)="toItem(item.id, item)">
+                    <span class="text">
+                        Подробнее
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
