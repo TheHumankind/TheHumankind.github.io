@@ -7,5 +7,7 @@ export interface GoodsItem {
     rating: number,
     description: string,
     subCatName: string,
-    catName: string
+    catName: string,
+    isInCart: boolean,
+    isFavorite: boolean
 }

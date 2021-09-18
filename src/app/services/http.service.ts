@@ -19,7 +19,12 @@ export class HttpService {
   }
 
   getGoodsFromPage(pageNumber: number, category: string, subcategory: string) {
-    return this.http.get(`https://angular-shops.herokuapp.com/goods/category/${category}/${subcategory}?start=${pageNumber}&count=10`);
+    const userToken = window.localStorage.getItem('userToken');
+    return this.http.get(`https://angular-shops.herokuapp.com/goods/category/${category}/${subcategory}?start=${pageNumber}&count=10`, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
+    });
   }
 
   getUserToken(login: string, password: string) {
@@ -45,13 +50,40 @@ export class HttpService {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
-    }).subscribe((res) => {
-      console.log(res);
+    })
+  }
+
+  deleteFavor(id: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    const data = {
+      id: id
+    }
+    this.http.delete(`https:/angular-shops.herokuapp.com/users/favorites?id=${data.id}`, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
     })
   }
 
   getOneGood(id: string) {
-    return this.http.get(`https://angular-shops.herokuapp.com/goods/item/${id}`);
+    const userToken = window.localStorage.getItem('userToken');
+    return this.http.get(`https://angular-shops.herokuapp.com/goods/item/${id}`, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
+    });
+  }
+
+  postToBasket(id: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    const data = {
+      id: id
+    }
+    this.http.post(`https:/angular-shops.herokuapp.com/users/favorites`, data, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
+    })
   }
 
 }

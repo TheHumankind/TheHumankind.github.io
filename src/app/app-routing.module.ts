@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BasketComponent } from './main/basket/basket.component';
 import { CategoryPageComponent } from './main/category-page/category-page.component';
 import { FavoritesComponent } from './main/favorites/favorites.component';
 import { HomeComponent } from './main/home/home.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'categories/:id', component: PageItemComponent },
   { path: 'login', component: LoginComponent },
   { path: 'favorites', component: FavoritesComponent },
+  { path: 'basket', component: BasketComponent },
   { path: 'main', redirectTo: '' },
 ];
 

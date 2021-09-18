@@ -1,4 +1,7 @@
 <div class="favor">
+    <div class="favor-header">
+        У вас в избранном {{ (favorItems$ | async)!.length }} товаров
+    </div>
     <div class="favor-items__container">
         <div class="favor-item" *ngFor="let item of favorItems$ | async">
             <div class="favor-item__availability" title="{{avalible(item.availableAmount)}}" [style.background-color]="countOfHabar(item.availableAmount)">
@@ -20,10 +23,7 @@
                 <img src="{{fiveStar(item.rating)}}" alt="">
             </div>
             <div class="favor-item__footer">
-                <button class="button favor-item__bascket">
-                    <img src="../../../assets/shopping-cart.svg" alt="">
-                </button>
-                <button class="button favor-item__love" (click)="isFavor(item.id)"> 
+                <button class="button favor-item__love" [class.active]="item.isFavorite" (click)="isFavor(item.id, item.isFavorite)"> 
                         <img src="../../../assets/heart.svg" alt="">
                 </button>
                 <button class="button favor-item__more" (click)="toItem(item.id, item)">

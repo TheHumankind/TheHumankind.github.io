@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, DeleteFavor, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -129,13 +129,17 @@ export class FavoritesComponent {
     ])
   }
 
-  isFavor(id: string) {
+  isFavor(id: string, isFavorite: boolean) {
     const token = window.localStorage.getItem('userToken');
+
     if(!token) {
       alert('Зарегайся, тварь');
       return;
     } 
-    this.http.postUserFavor(id, token);
+    this.http.deleteFavor(id);    
+    this.store.dispatch([
+      new DeleteFavor(id)
+    ])
   }
 
 }

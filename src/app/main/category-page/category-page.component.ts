@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, GetUserData, UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, GetUserData, IsInFavor, UploadCurrentPage, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -126,12 +126,22 @@ export class CategoryPageComponent {
     ])
   }
 
-  isFavor(id: string) {
+  isFavor(item: GoodsItem, id: string, isFavorite: boolean) {
     const token = window.localStorage.getItem('userToken');
+
     if(!token) {
       alert('Зарегайся, тварь');
       return;
     } 
-    this.http.postUserFavor(id, token);
+
+    if(isFavorite === false) {
+      this.http.postUserFavor(id, token);
+    } else {
+      this.http.deleteFavor(id);
+    }
+    
+    this.store.dispatch([
+      new IsInFavor(item)
+    ])
   }
 }

@@ -9,6 +9,16 @@ export class SelectedCategory {
     static readonly type = '[STORE] Select in big menu';
 }
 
+export class DeleteFavor {
+    constructor(public id: string) {}
+    static readonly type = '[STORE] Delete favor';
+}
+
+export class IsInFavor {
+    constructor(public item: GoodsItem) {}
+    static readonly type = '[STORE] Change favor status';
+}
+
 export class UploadCurrentPage {
     constructor(public pageNumber: number, public category: string, public subcategory: string) {}
     static readonly type = '[STORE] Get goods for page';

@@ -19,7 +19,7 @@ export class PageItemComponent implements OnInit {
 
   currentSubCat$: Observable<string>;
 
-  img: any;
+  img: string;
 
   constructor(public store: Store, public router: Router) { 
     this.pageItem$ = this.store.select(StoreState.currentPageItem);

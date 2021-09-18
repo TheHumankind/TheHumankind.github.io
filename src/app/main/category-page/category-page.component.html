@@ -25,7 +25,7 @@
                 <button class="button page-item__bascket">
                     <img src="../../../assets/shopping-cart.svg" alt="">
                 </button>
-                <button class="button page-item__love" (click)="isFavor(item.id)"> 
+                <button class="button page-item__love" [class.active]="item.isFavorite" (click)="isFavor(item, item.id, item.isFavorite)"> 
                         <img src="../../../assets/heart.svg" alt="">
                 </button>
                 <button class="button page-item__more" (click)="toItem(item.id, item)">

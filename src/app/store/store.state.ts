@@ -7,7 +7,7 @@ import { GoodsItem } from "../models/goodsItem";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CurrentGood, GetAllFavorData, GetUserData, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
+import { CurrentGood, DeleteFavor, GetAllFavorData, GetUserData, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -161,7 +161,6 @@ export class StoreState {
                         patchState({
                             userData: userData[0]
                         })
-                        console.log(userData);
                     })
             });
     }
@@ -180,6 +179,49 @@ export class StoreState {
                     new GetAllFavorData()
                 ])
             })
+    }
+
+    @Action(IsInFavor)
+    isInFavor({ patchState, getState }: StateContext<Store21>, { item }: IsInFavor) {
+        const newItem: GoodsItem = {
+            id: item.id,
+            name: item.name,
+            imageUrls: item.imageUrls,
+            availableAmount: item.availableAmount,
+            price: item.price,
+            rating: item.rating,
+            description: item.description,
+            subCatName: item.subCatName,
+            catName: item.catName,
+            isInCart: item.isInCart,
+            isFavorite: item.isFavorite
+        };
+        let i;
+        const pageData = [...getState().pageData];
+        for(i = 0; i < pageData.length; i++) {
+            if (newItem.id === pageData[i].id) {
+                const data = {...pageData[i]};
+                data.isFavorite = !data.isFavorite;
+                pageData[i] = data;
+            }
+        } 
+        patchState({
+            pageData: pageData,
+        })
+    }
+
+    @Action(DeleteFavor)
+    deleteFavor({ patchState, getState }: StateContext<Store21>, { id }: DeleteFavor) {
+        let i;
+        const pageData = [...getState().favorUserItems];
+        for(i = 0; i < pageData.length; i++) {
+            if (id === pageData[i].id) {
+                pageData.splice(i, 1);
+            }
+        } 
+        patchState({
+            favorUserItems: pageData,
+        })
     }
 
     @Action(GetAllFavorData)

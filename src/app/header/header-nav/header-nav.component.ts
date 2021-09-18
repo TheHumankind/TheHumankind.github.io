@@ -56,4 +56,8 @@ export class HeaderNavComponent {
       new GetUserData()
     ])
   }
+
+  toBasket() {
+    this.router.navigate(['basket']);
+  }
 }

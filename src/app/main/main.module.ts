@@ -12,6 +12,7 @@ import { AboutGoodComponent } from './about-good/about-good.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { BasketComponent } from './basket/basket.component';
 
 
 
@@ -27,6 +28,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     AboutGoodComponent,
     LoginComponent,
     FavoritesComponent,
+    BasketComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),
@@ -39,7 +41,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
     BestGoodsComponent,
     ContainerComponent,
     LoginComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    BasketComponent
   ]
 })
 export class MainModule { }
