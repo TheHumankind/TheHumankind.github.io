@@ -89,7 +89,7 @@
             <div class="form-total">
                 Сумма заказа: {{ $any(totalPrice$ | async) | number: '0.1-5' }}
             </div>
-            <button class="button"> 
+            <button class="button" (click)="sendOrder()"> 
                 <span class="text">
                     Заказать
                 </span>

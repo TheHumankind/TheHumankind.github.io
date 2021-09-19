@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
       ])
     }
     if (this.store.selectSnapshot(StoreState.currentCategoryName) === '') {
-      this.router.navigate(['main']);
+      this.router.navigate(['basket']);
     }
     this.store.dispatch([
       new LoadItems(),

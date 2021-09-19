@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { UserToken } from '../models/userToken';
+import { Store } from '@ngxs/store';
+import { Item, Order } from '../models/order';
+import { StoreState } from '../store/store.state';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,7 @@ import { UserToken } from '../models/userToken';
 
 export class HttpService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store) { }
 
   getCategories() {
     return this.http.get(`https://angular-shops.herokuapp.com/categories`);
@@ -104,6 +107,40 @@ export class HttpService {
     }).subscribe((res) => {
       console.log('delete user cart', res);
     })
+  }
+
+  sendOrder(name: string, adr: string, phone: string, time: string, comment: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    const orderData: Order = {
+      id: '',
+      items: [],
+      details: {
+        name: name,
+        address: adr, 
+        phone: phone,
+        timeToDeliver: time,
+        comment: comment
+      }
+    }
+    const goodsToOrder = this.store.selectSnapshot(StoreState.cartItems);
+    goodsToOrder.forEach((e) => {
+      if(e.value) {
+        const orderItem: Item = {
+          id: e.id,
+          amount: e.value
+        }
+        orderData.items.push(orderItem);
+      }
+    })
+    console.log(orderData);
+    this.http.post(`https:/angular-shops.herokuapp.com/users/order`, orderData, { 
+      responseType: 'text',
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      })
+    }).subscribe((res) => {
+    });
   }
 
 }

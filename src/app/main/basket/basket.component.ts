@@ -113,4 +113,10 @@ export class BasketComponent {
       new DeleteFromCart(id)
     ])
   }
+
+  sendOrder() {
+    if (!this.timeStat && !this.dateStat && !this.fioStat && !this.phoneStat && !this.adressStat) {
+      this.http.sendOrder(this.fio, this.adress, this.phone, this.date, this.comment);
+    }
+  }
 }
