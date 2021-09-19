@@ -84,7 +84,7 @@
                 <span>
                     Комментарий к заказу
                 </span>
-                <input class="form-input" type="text">
+                <input class="form-input" type="text" maxlength="250">
             </label>
             <div class="form-total">
                 Сумма заказа: {{ $any(totalPrice$ | async) | number: '0.1-5' }}

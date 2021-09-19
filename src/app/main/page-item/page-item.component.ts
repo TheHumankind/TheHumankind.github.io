@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
-import { LoadItems } from 'src/app/store/store.action';
+import { LoadItems, UploadCurrentPage } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -32,8 +32,11 @@ export class PageItemComponent implements OnInit {
     this.pageItem$ = this.store.select(StoreState.currentPageItem);
   }
 
-  backToCat() {
+  backToCat(category: string, subCategory: string) {
     this.router.navigate(['categories']);
+    this.store.dispatch([
+      new UploadCurrentPage(0, category, subCategory)
+    ])
   }
 
   backToLead() {

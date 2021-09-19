@@ -15,13 +15,23 @@
     orientation="ltr">
     <mat-carousel-slide overlayColor="none" *ngFor="let item of popular$ | async">
         <div class="best__container-slide">
-            <div class="best-card" *ngFor="let subItem of item">
+            <div class="best-card" *ngFor="let subItem of item" (click)="toItem(subItem.id, subItem)">
                 <div class="best__container-card">
                     <div class="best-image">
                         <img src="{{checkUrl(subItem.imageUrls[0])}}" alt="">
                     </div>
                     <div class="best-descr">
                         <div class="best-header">{{subItem.name}}</div>
+                        <div class="best-stars">
+                            <img src="../../../assets/star-fill.png" alt="">
+                            <img src="../../../assets/star-fill.png" alt="">
+                            <img src="../../../assets/star-fill.png" alt="">
+                            <img src="../../../assets/star-fill.png" alt="">
+                            <img src="../../../assets/star-fill.png" alt="">
+                        </div>
+                        <div class="best-price">
+                            По цене: {{ subItem.price }} руб.
+                        </div>
                     </div>
                 </div>
             </div>

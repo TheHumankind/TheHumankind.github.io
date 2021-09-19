@@ -12,6 +12,7 @@ import { HeaderModule } from './header/header.module';
 import { StoreState } from './store/store.state';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainModule } from './main/main.module';
+import 'hammerjs';
 
 @NgModule({
   declarations: [

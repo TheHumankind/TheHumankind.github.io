@@ -143,10 +143,18 @@ export class StoreState {
     }
 
     @Action(CurrentGood)
-    currentGood({ patchState }: StateContext<Store21>, { item }: CurrentGood){
-        patchState({
-            currentPageItem: item,
-        })
+    currentGood({ patchState, getState }: StateContext<Store21>, { item }: CurrentGood){
+        this.http.getOneGood(item.id)
+            .subscribe((res) => {
+                const resItem = res as GoodsItem;
+                console.log(resItem.category);
+                console.log(resItem.subCategory);
+                patchState({
+                    currentPageItem: resItem,
+                    currentCat: resItem.category,
+                    currentSubCat: resItem.subCategory,
+                })
+            })
     }
 
     @Action(LoginUser)

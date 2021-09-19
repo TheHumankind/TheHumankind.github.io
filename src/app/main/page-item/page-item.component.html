@@ -12,7 +12,7 @@
         <span>
             >
         </span>
-        <span class="path" (click)="backToCat()">
+        <span class="path" (click)="backToCat(item.category, item.subCategory)">
             {{ currentSubCat$ | async }}
         </span>
         <span>

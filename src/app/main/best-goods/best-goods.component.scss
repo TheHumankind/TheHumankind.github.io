@@ -1,10 +1,11 @@
 .best {
     height: 300px;
-    color: #FF8101;
+    color: #264566;
     box-sizing: border-box;
 
     & > h3 {
         margin-left: 25px;
+        font-size: 26px;
     }
 
     &__container-slide {
@@ -23,7 +24,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        cursor: default;
+        cursor: pointer;
     }
 
     &-image {
@@ -43,10 +44,25 @@
     &-descr {
         display: flex;
         align-items: start;
+        flex-direction: column;
         max-width: 150px;
         height: 100%;
         margin-left: 15px;
         
+    }
+
+    &-price {
+        margin-top: 12px;
+        font-size: 18px;
+    }
+
+    &-stars {
+        display: flex;
+        column-gap: 5px;
+        
+        & > img {
+            width: 15px;
+        }
     }
 
     &-header {
@@ -66,6 +82,8 @@
         border-radius: 20px;
         background-color: #f8f8f8;
         box-sizing: border-box;
+        cursor: pointer;
+
         &:hover {
             box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.2) inset;
         }

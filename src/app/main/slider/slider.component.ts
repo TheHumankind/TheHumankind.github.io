@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
+import { CurrentGood } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -13,7 +15,7 @@ export class SliderComponent {
   
   slideItems$: Observable<GoodsItem[]>
 
-  constructor(public store: Store) {
+  constructor(public store: Store, public router: Router) {
     this.slideItems$ = this.store.select(StoreState.mainSlider);
   }
 
@@ -29,6 +31,14 @@ export class SliderComponent {
       result = url;
     }
     return result;
+  }
+
+  toItem(id: string, item: GoodsItem) {
+    const link = `categories/${id}`;
+    this.router.navigate([link]);
+    this.store.dispatch([
+      new CurrentGood(item)
+    ])
   }
 
 }

@@ -6,6 +6,8 @@ export interface GoodsItem {
     price: number,
     rating: number,
     description: string,
+    category: string,
+    subCategory: string,
     subCatName: string,
     catName: string,
     isInCart: boolean,
