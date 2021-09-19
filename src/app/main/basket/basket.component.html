@@ -1,1 +1,99 @@
-<p>basket works!</p>
+
+<div class="cart">
+    <div class="cart-header">
+        Корзина
+    </div>
+    <div class="cart-container">
+        <div class="cart-items" *ngFor="let item of (cartItems$ | async)">
+            <div class="cart-items__img">
+                <img src="{{item.imageUrls[0]}}" alt="">
+            </div>
+            <div class="cart-items__descr">
+                <div class="cart-items__name">
+                    {{ item.name }}
+                </div>
+                <div class="cart-items__text">
+                    {{ item.description }}
+                </div>
+            </div>
+            <div class="cart-counter">
+                <div class="button" (click)="checkIsValue(item.id, false)">
+                    <span class="text">
+                        -
+                    </span>
+                </div>
+                <div class="cart-number">
+                    {{ item.value }}
+                </div>
+                <div class="button" (click)="checkIsValue(item.id, true)">
+                    <span class="text">
+                        +
+                    </span>
+                </div>
+            </div>
+            <div class="cart-available">
+                <span class="">
+                    Доступно к заказу: {{ item.availableAmount }}
+                </span>
+            </div>
+            <div class="cart-price">
+                <span class="">
+                    Цена: {{ item.sumForCurGood | number: '1.1-2' }}
+                </span>
+                <button class="button" [class.active]="item.isInCart" (click)="deleteFromCart(item.id)"> 
+                    <span class="text">
+                        X
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="cart-formbox">
+        <form class="form">
+            <label class="form-label">
+                <span>
+                    ФИО
+                </span>
+                <input class="form-input" [class.bad]="fioStat" name="fio" [(ngModel)]="fio" (input)="changeFIO()" type="text">
+            </label>
+            <label class="form-label">
+                <span>
+                    Номер телефона
+                </span>
+                <input class="form-input" [class.bad]="phoneStat" name="phone" [(ngModel)]="phone" (input)="changePhone()" type="text">
+            </label>
+            <label class="form-label">
+                <span>
+                    Дата доставки
+                </span>
+                <input class="form-input" [class.bad]="dateStat" name="date" [(ngModel)]="date" (input)="changeDate()" type="date">
+            </label>
+            <label class="form-label">
+                <span>
+                    Время доставки
+                </span>
+                <input class="form-input" [class.bad]="timeStat" name="time" [(ngModel)]="time" (input)="changeTime()" type="time">
+            </label>
+            <label class="form-label">
+                <span>
+                    Адрес доставки
+                </span>
+                <input class="form-input" [class.bad]="adressStat" name="adress" [(ngModel)]="adress" (input)="changeAdress()" [class.bad]="adressStat" type="tel">
+            </label>
+            <label class="form-label">
+                <span>
+                    Комментарий к заказу
+                </span>
+                <input class="form-input" type="text">
+            </label>
+            <div class="form-total">
+                Сумма заказа: {{ $any(totalPrice$ | async) | number: '0.1-5' }}
+            </div>
+            <button class="button"> 
+                <span class="text">
+                    Заказать
+                </span>
+            </button>
+        </form>
+    </div>
+</div>

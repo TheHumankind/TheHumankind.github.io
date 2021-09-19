@@ -9,5 +9,7 @@ export interface GoodsItem {
     subCatName: string,
     catName: string,
     isInCart: boolean,
-    isFavorite: boolean
+    isFavorite: boolean,
+    sumForCurGood: number,
+    value: number
 }

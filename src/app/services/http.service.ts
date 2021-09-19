@@ -50,6 +50,8 @@ export class HttpService {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
+    }).subscribe((res) => {
+      console.log(res);
     })
   }
 
@@ -62,6 +64,8 @@ export class HttpService {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
+    }).subscribe((res) => {
+      console.log(res);
     })
   }
 
@@ -74,15 +78,31 @@ export class HttpService {
     });
   }
 
-  postToBasket(id: string) {
+  postUserCart(id: string) {
     const userToken = window.localStorage.getItem('userToken');
     const data = {
       id: id
     }
-    this.http.post(`https:/angular-shops.herokuapp.com/users/favorites`, data, { 
+    this.http.post(`https:/angular-shops.herokuapp.com/users/cart`, data, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
+    }).subscribe((res) => {
+      console.log('post user cart', res);
+    })
+  }
+
+  deleteFromCart(id: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    const data = {
+      id: id
+    }
+    this.http.delete(`https:/angular-shops.herokuapp.com/users/cart?id=${data.id}`, { 
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+      })
+    }).subscribe((res) => {
+      console.log('delete user cart', res);
     })
   }
 

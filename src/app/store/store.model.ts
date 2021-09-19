@@ -12,9 +12,11 @@ export interface Store21 {
     currentPageItem: {} | GoodsItem,
     userData: {} | UserData,
     favorUserItems: GoodsItem[],
+    cartUserItems: GoodsItem[],
     currentCat: string,
     currentSubCat: string,
     currentCatName: string,
     currentSubCatName: string,
     pageNumber: number,
+    totalPrice: number
 }

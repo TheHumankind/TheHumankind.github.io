@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, GetUserData, IsInFavor, UploadCurrentPage, UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, GetUserData, IsInCart, IsInFavor, UploadCurrentPage, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -142,6 +142,24 @@ export class CategoryPageComponent {
     
     this.store.dispatch([
       new IsInFavor(item)
+    ])
+  }
+
+  isBasket(item: GoodsItem, id: string, isInCart: boolean) {
+    const token = window.localStorage.getItem('userToken');
+
+    if(!token) {
+      alert('Зарегайся, тварь');
+      return;
+    } 
+
+    if(isInCart === false) {
+      this.http.postUserCart(id);
+    } else {
+      this.http.deleteFromCart(id);
+    }
+    this.store.dispatch([
+      new IsInCart(item)
     ])
   }
 }

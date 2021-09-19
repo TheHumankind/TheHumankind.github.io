@@ -7,7 +7,7 @@ import { GoodsItem } from "../models/goodsItem";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CurrentGood, DeleteFavor, GetAllFavorData, GetUserData, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, UploadCurrentPage, UploadMore } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -26,7 +26,9 @@ import { Store21 } from "./store.model";
         currentSubCatName: '',
         pageNumber: 0,
         userData: {},
-        favorUserItems: []
+        favorUserItems: [],
+        cartUserItems: [],
+        totalPrice: 0
     }
 })
 
@@ -166,36 +168,27 @@ export class StoreState {
     }
 
     @Action(GetUserData)
-    getUserData({ patchState, dispatch }: StateContext<Store21>) {
+    getUserData({ patchState, dispatch, getState }: StateContext<Store21>) {
         const userToken = window.localStorage.getItem('userToken');
         if (!userToken) return;
         this.http.getUserInfo(userToken)
             .subscribe((response) => {
                 const userData = response as UserData[];
+                console.log('res = ', response);
                 patchState({
-                    userData: userData[0]
+                    userData: userData[0],
+                    totalPrice: 0
                 })
                 dispatch([
-                    new GetAllFavorData()
-                ])
+                    new GetAllFavorData(),
+                    new GetAllCartData()
+                ]);
             })
     }
 
     @Action(IsInFavor)
     isInFavor({ patchState, getState }: StateContext<Store21>, { item }: IsInFavor) {
-        const newItem: GoodsItem = {
-            id: item.id,
-            name: item.name,
-            imageUrls: item.imageUrls,
-            availableAmount: item.availableAmount,
-            price: item.price,
-            rating: item.rating,
-            description: item.description,
-            subCatName: item.subCatName,
-            catName: item.catName,
-            isInCart: item.isInCart,
-            isFavorite: item.isFavorite
-        };
+        const newItem: GoodsItem = {...item};
         let i;
         const pageData = [...getState().pageData];
         for(i = 0; i < pageData.length; i++) {
@@ -234,12 +227,117 @@ export class StoreState {
             this.http.getOneGood(e)
                 .subscribe((res) => {
                     const newItem = res as GoodsItem;
+                    console.log(res);
                     const oldFavorGoods = getState().favorUserItems as GoodsItem[];
                     const newFavorGoods = [...oldFavorGoods, newItem];
                     patchState({
                         favorUserItems: newFavorGoods
                     })
                 });
+        })
+    }
+
+    @Action(GetAllCartData)
+    getAllCartData({ patchState, getState, dispatch }: StateContext<Store21>) {
+        const getCartId = getState().userData as UserData;
+        patchState({
+            cartUserItems: []
+        })
+        getCartId.cart.forEach((e) => {
+            this.http.getOneGood(e)
+                .subscribe((res) => {
+                    const newItem = res as GoodsItem;
+                    const oldCartGoods = getState().cartUserItems as GoodsItem[];
+                    const newCartGoods = [...oldCartGoods, newItem];
+                    patchState({
+                        cartUserItems: newCartGoods
+                    })
+                    dispatch([
+                        new SetCountOfGoods()
+                    ])
+                });
+        })
+    }
+
+    @Action(IsInCart)
+    isInCart({ patchState, getState }: StateContext<Store21>, { item }: IsInFavor) {
+        const newItem: GoodsItem = {...item};
+        let i;
+        const pageData = [...getState().pageData];
+        for(i = 0; i < pageData.length; i++) {
+            if (newItem.id === pageData[i].id) {
+                const data = {...pageData[i]};
+                data.isInCart = !data.isInCart;
+                pageData[i] = data;
+            }
+        } 
+        patchState({
+            pageData: pageData,
+        })
+    }
+
+    @Action(DeleteFromCart)
+    deleteFromCart({ patchState, getState }: StateContext<Store21>, { id }: DeleteFromCart) {
+        let i;
+        let totalPrice = getState().totalPrice;
+        const pageData = [...getState().cartUserItems];
+        for(i = 0; i < pageData.length; i++) {
+            if (id === pageData[i].id) {
+                totalPrice = totalPrice - (pageData[i].value * pageData[i].price);
+                pageData.splice(i, 1);
+            }
+        } 
+        patchState({
+            cartUserItems: pageData,
+            totalPrice: totalPrice
+        })
+    }
+
+    @Action(SetCountOfGoods)
+    setCountOfGoods({ patchState, getState }: StateContext<Store21>) {
+        patchState({
+            totalPrice: 0
+        })
+        const itemsInCart = [...getState().cartUserItems];
+        let totalPrice = getState().totalPrice;
+        itemsInCart.forEach((e) => {
+            itemsInCart[itemsInCart.indexOf(e)] = {...e};
+        });
+        itemsInCart.forEach((e) => {
+            e.value = 1;
+            e.sumForCurGood = e.price;
+            totalPrice = totalPrice + e.price;
+            console.log(e.price);
+        });
+        patchState({
+            cartUserItems: itemsInCart,
+            totalPrice: totalPrice
+        })
+    }
+
+    @Action(CountManage)
+    countManage({ patchState, getState }: StateContext<Store21>, { id, sign }: CountManage) {
+        const itemsInCart = [...getState().cartUserItems];
+        let totalPrice = getState().totalPrice;
+        itemsInCart.forEach((e) => {
+            itemsInCart[itemsInCart.indexOf(e)] = {...e};
+        });
+        itemsInCart.forEach((e) => {
+            if (e.id === id) {
+                if(sign && e.availableAmount !== e.value) {
+                    e.value = ++e.value;
+                    e.sumForCurGood += e.price;
+                    totalPrice += e.price;
+                } else if (!sign && e.value > 1) {
+                    e.value = --e.value;
+                    totalPrice -= e.price;
+                    e.sumForCurGood -= e.price;
+                }
+            }
+        });
+        patchState({
+            cartUserItems: itemsInCart,
+            totalPrice: totalPrice
         })
     }
 
@@ -309,5 +407,16 @@ export class StoreState {
     public static favorItems(state: Store21): GoodsItem[] {
         const item = state.favorUserItems as GoodsItem[];
         return item;
+    }
+
+    @Selector() 
+    public static cartItems(state: Store21): GoodsItem[] {
+        const item = state.cartUserItems as GoodsItem[];
+        return item;
+    }
+
+    @Selector() 
+    public static total(state: Store21): number {
+        return state.totalPrice;
     }
 }

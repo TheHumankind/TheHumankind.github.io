@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UserData } from 'src/app/models/userData';
-import { GetUserData, LoadItems, SelectedCategory } from 'src/app/store/store.action';
+import { GetUserData, LoadItems, SelectedCategory, SetCountOfGoods } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -32,13 +32,6 @@ export class HeaderNavComponent {
     this.accountMenu = !this.accountMenu;
   }
 
-  switchBasket(event: Event) {
-    if (event.type === 'mouseleave' && this.basketMenu === false) {
-      return;
-    }
-    this.basketMenu = !this.basketMenu;
-  }
-
   bigVisibleMenu(event: Event) {
     if(event.type === 'mouseleave' && this.bigMenu === false) {
       return;
@@ -59,5 +52,8 @@ export class HeaderNavComponent {
 
   toBasket() {
     this.router.navigate(['basket']);
+    this.store.dispatch([
+      new GetUserData(),
+    ])
   }
 }

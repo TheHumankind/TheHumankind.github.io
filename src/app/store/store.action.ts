@@ -46,6 +46,30 @@ export class GetAllFavorData {
     static readonly type = '[STORE] Get all favor data';
 }
 
+export class GetAllCartData {
+    static readonly type = '[STORE] Get all cart data';
+}
+
+export class DeleteFromCart {
+    constructor(public id: string) {}
+    static readonly type = '[STORE] Delete from cart';
+}
+
+export class IsInCart {
+    constructor(public item: GoodsItem) {}
+    static readonly type = '[STORE] Is in cart check';
+}
+
 export class ResetPages {
     static readonly type = '[STORE] Reset pages number';
 }
+
+export class SetCountOfGoods {
+    static readonly type = '[STORE] Set count of goods for one good';
+}
+
+export class CountManage {
+    constructor(public id: string, public sign: boolean) {}
+    static readonly type = '[STORE] Managing for count of goods in cart';
+}
+
