@@ -1,0 +1,41 @@
+<div class="wait">
+    <div class="wait-header">
+        Лист ожидания
+    </div>
+    <div class="wait-order" *ngFor="let item of (orders$ | async)">
+        <div class="wait-id">
+            <span>
+                ID вашего заказа: {{ item.id }}
+            </span>
+        </div>
+        <div class="wait-info">
+            <span>
+                На имя: {{ item.details.name }}
+            </span>
+            <span>
+                По адресу: {{ item.details.address }}
+            </span>
+            <span>
+                Телефон: {{ item.details.phone }}
+            </span>
+            <span>
+                Время доставки: {{ item.details.timeToDeliver }}
+            </span>
+        </div>
+        <div class="wait-descr">
+            <span>
+                Комментарий: 
+            </span>
+            <span>
+                {{ item.details.comment }}
+            </span>
+        </div>
+        <div class="wait-btn" (click)="removeOrder(item)">
+            <button class="button active">
+                <span class="text">
+                    X
+                </span>
+            </button>
+        </div>
+    </div>
+</div>

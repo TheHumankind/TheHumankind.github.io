@@ -71,6 +71,13 @@ export class HeaderNavComponent {
     ])
   }
 
+  toWait() {
+    this.router.navigate(['wait']);
+    this.store.dispatch([
+      new GetUserData(),
+    ])
+  }
+
   toItem(item: GoodsItem) {
     this.router.navigate([`categories/${item.id}`]);
     this.store.dispatch([

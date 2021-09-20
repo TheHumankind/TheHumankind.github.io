@@ -18,14 +18,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpService.search('ударная');
     if(window.localStorage.getItem('userToken')) {
       this.store.dispatch([
         new GetUserData()
       ])
     }
     if (this.store.selectSnapshot(StoreState.currentCategoryName) === '') {
-      this.router.navigate(['basket']);
+      this.router.navigate(['wait']);
     }
     this.store.dispatch([
       new LoadItems(),

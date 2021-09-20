@@ -154,4 +154,17 @@ export class HttpService {
     });
   }
 
+  removeOrder(id: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    this.http.delete(`https:/angular-shops.herokuapp.com/users/order?id=${id}`, { 
+      responseType: 'text',
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      })
+    }).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
 }

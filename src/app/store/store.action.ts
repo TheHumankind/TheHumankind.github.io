@@ -1,4 +1,5 @@
 import { GoodsItem } from "../models/goodsItem";
+import { Order } from "../models/order";
 
 export class LoadItems {
     static readonly type = '[STORE] Items';
@@ -76,5 +77,14 @@ export class CountManage {
 export class FindWithSearch {
     constructor(public text: string) {}
     static readonly type = '[STORE] Find item with search';
+}
+
+export class ClearUserOrder {
+    static readonly type = '[STORE] Clear user order';
+}
+
+export class RemoveOrder {
+    constructor(public order: Order) {}
+    static readonly type = '[STORE] Remove order';
 }
 

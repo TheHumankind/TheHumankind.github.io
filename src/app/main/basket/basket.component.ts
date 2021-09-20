@@ -1,9 +1,11 @@
+import { compileDeclareFactoryFunction } from '@angular/compiler';
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CountManage, DeleteFromCart } from 'src/app/store/store.action';
+import { ClearUserOrder, CountManage, DeleteFromCart } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 
@@ -40,7 +42,7 @@ export class BasketComponent {
 
   totalPrice$: Observable<number>
 
-  constructor(public store: Store, public http: HttpService) { 
+  constructor(public store: Store, public http: HttpService, public router: Router) { 
     this.cartItems$ = this.store.select(StoreState.cartItems);
     this.totalPrice$ = this.store.select(StoreState.total);
     this.time = '';
@@ -117,6 +119,10 @@ export class BasketComponent {
   sendOrder() {
     if (!this.timeStat && !this.dateStat && !this.fioStat && !this.phoneStat && !this.adressStat) {
       this.http.sendOrder(this.fio, this.adress, this.phone, this.date, this.comment);
+      this.store.dispatch([
+        new ClearUserOrder()
+      ])
+      this.router.navigate(['main']);
     }
   }
 }

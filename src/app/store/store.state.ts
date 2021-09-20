@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { Categories } from "../models/categories";
 import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
+import { Order } from "../models/order";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -26,7 +27,7 @@ import { Store21 } from "./store.model";
         currentCatName: '',
         currentSubCatName: '',
         pageNumber: 0,
-        userData: {},
+        userData: undefined,
         favorUserItems: [],
         cartUserItems: [],
         totalPrice: 0
@@ -358,7 +359,7 @@ export class StoreState {
     }
 
     @Action(FindWithSearch)
-    findWithSearch({ patchState, getState }: StateContext<Store21>, { text }: FindWithSearch) {
+    findWithSearch({ patchState }: StateContext<Store21>, { text }: FindWithSearch) {
         this.http.search(text)
             .subscribe((res) => {
                 const searchRes = JSON.parse(res) as GoodsItem[]; 
@@ -366,6 +367,33 @@ export class StoreState {
                     searchItems: [...searchRes]
                 })
             });
+    }
+
+    @Action(ClearUserOrder)
+    clearUserOrder({ patchState }: StateContext<Store21>) {
+        patchState({
+            cartUserItems: []
+        });
+    }
+
+    @Action(RemoveOrder) 
+    removeOrder({ getState, patchState }: StateContext<Store21>, { order }: RemoveOrder) {
+        if (getState().userData === undefined) {
+            return;
+        }
+        const currentState = {...getState().userData} as UserData;
+        if (!currentState.orders) return;
+        const orders = [...currentState.orders];
+        orders.forEach((e) => {
+            if (e.id === order.id) {
+                orders.splice(orders.indexOf(e), 1);
+                this.http.removeOrder(e.id);
+            }
+        });
+        currentState.orders = orders;
+        patchState({
+            userData: currentState
+        })
     }
 
     @Selector() 
@@ -450,5 +478,16 @@ export class StoreState {
     @Selector() 
     public static total(state: Store21): number {
         return state.totalPrice;
+    }
+
+    @Selector() 
+    public static getOrders(state: Store21): Order[] {
+        let orders: Order[];
+        if(state.userData !== undefined) {
+            orders = state.userData.orders
+            return orders;
+        } else {
+            return [];
+        }
     }
 }

@@ -6,6 +6,7 @@ import { FavoritesComponent } from './main/favorites/favorites.component';
 import { HomeComponent } from './main/home/home.component';
 import { LoginComponent } from './main/login/login.component';
 import { PageItemComponent } from './main/page-item/page-item.component';
+import { WaitListComponent } from './main/wait-list/wait-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'favorites', component: FavoritesComponent },
   { path: 'basket', component: BasketComponent },
   { path: 'main', redirectTo: '' },
+  { path: 'wait', component: WaitListComponent }
 ];
 
 @NgModule({

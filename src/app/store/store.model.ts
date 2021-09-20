@@ -10,7 +10,7 @@ export interface Store21 {
     popularItems: [GoodsItem[]],
     pageData: GoodsItem[],
     currentPageItem: {} | GoodsItem,
-    userData: {} | UserData,
+    userData: UserData | undefined,
     favorUserItems: GoodsItem[],
     cartUserItems: GoodsItem[],
     searchItems: GoodsItem[],

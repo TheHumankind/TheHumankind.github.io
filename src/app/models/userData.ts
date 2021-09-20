@@ -1,3 +1,5 @@
+import { Order } from "./order";
+
 export interface UserData {
     firstName: '',
     lastName: '',
@@ -6,5 +8,5 @@ export interface UserData {
     password: '',
     cart: [],
     favorites: [],
-    orders: []
+    orders: Order[]
 }

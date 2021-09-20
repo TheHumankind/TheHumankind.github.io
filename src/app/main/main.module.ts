@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { BasketComponent } from './basket/basket.component';
+import { WaitListComponent } from './wait-list/wait-list.component';
 
 
 
@@ -29,6 +30,7 @@ import { BasketComponent } from './basket/basket.component';
     LoginComponent,
     FavoritesComponent,
     BasketComponent,
+    WaitListComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),
