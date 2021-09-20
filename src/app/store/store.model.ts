@@ -13,6 +13,7 @@ export interface Store21 {
     userData: {} | UserData,
     favorUserItems: GoodsItem[],
     cartUserItems: GoodsItem[],
+    searchItems: GoodsItem[],
     currentCat: string,
     currentSubCat: string,
     currentCatName: string,

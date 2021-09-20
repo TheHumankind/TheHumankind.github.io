@@ -108,7 +108,7 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: 175px;
+    width: 185px;
     height: auto;
     max-height: 0px;
     margin: 0;
@@ -125,17 +125,52 @@
 
     & > li {
 
+        display: flex;
         width: 84%;
         margin-left: 10px;
         margin-bottom: 4px;
         color: #264566;
         border-bottom: 1px solid gainsboro;
 
+        .li-a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 5px;
+            text-decoration: none;
+            color: #264566;
+
+            & > span {
+                display: block;
+                margin-top: 7px;
+                height: 24px;
+            }
+
+            .svg {
+                margin-left: 5px;
+                width: 16px;
+            }
+
+            .img {
+
+                width: 24px;
+                height: 24px;
+
+                & > img {
+                   width: 100%;
+                }
+
+            }
+
+            
+        }
+
         &:first-child {
             margin-top: 10px;
         }
 
         &:last-child {
+            margin-bottom: 5px;
             border-bottom: 0px;    
         }
     }
@@ -143,7 +178,7 @@
 
 .disabled {
     border: 1px solid rgba(#2d635b, .2);
-    max-height: 130px;
+    max-height: 165px;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

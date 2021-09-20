@@ -7,7 +7,28 @@
             Каталог
         </span>
     </button>
-    <input class="input header-input" type="text">
+    <input class="input header-input" name="searchInput" [(ngModel)]="searchInput" (input)="search()" type="text">
+    <div class="search" *ngIf="searchVisability" (mouseleave)="hideSearchList()">
+        <div class="search-item" *ngFor="let item of searchItems$ | async" (click)="toItem(item)" (click)="hideSearchList()">
+            <div class="search-img">
+                <img src="{{item.imageUrls[0]}}" alt="">
+            </div>
+            <div class="search-descr">
+                <div class="search-header">
+                    {{item.name}}
+                </div>
+                <div class="search-txt">
+                    С рейтингом: {{item.rating}}
+                </div>
+                <div class="search-txt">
+                    ID товара: {{ item.id }}
+                </div>
+                <div class="search-txt">
+                    По цене: {{ item.price }} руб.
+                </div>
+            </div>
+        </div>
+    </div>
     <button class="button relative" (click)="switchAccount($event)">
         <span class="text">аккаунт</span>
         <div class="drop-menu" [class.disabled]="accountMenu">
@@ -15,8 +36,13 @@
                 <img src="../../../assets/account.png" alt="">
             </div>
             <button class="button">
-                <span class="text" (click)="toLogin()">
+                <span class="text">
                     Войти
+                </span>
+            </button>
+            <button class="button">
+                <span class="text">
+                    Выйти
                 </span>
             </button>
             <div class="option" (click)="toBasket()">
@@ -29,11 +55,7 @@
             </div>
             <div class="option">
                 <img src="../../../assets/view.png" alt="">
-                <div>Просмотренные</div>
-            </div>
-            <div class="option">
-                <img src="../../../assets/shuffle.png" alt="">
-                <div>Списки сравнения</div>
+                <div>Лист ожидания</div>
             </div>
         </div>
     </button>
@@ -41,9 +63,6 @@
         <span class="text">
             Корзина
         </span>
-        <div class="drop-menu" [class.disabled]="basketMenu">
-            adada
-        </div>
     </button>
     <app-big-menu class="fly" [class.invisible]="bigMenu" (mouseleave)="bigVisibleMenu($event)">
     </app-big-menu>

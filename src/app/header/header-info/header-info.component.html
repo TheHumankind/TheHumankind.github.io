@@ -1,12 +1,12 @@
 <div class="info">
     <div class="info-menu">
         <div class="info-town">
-            <img src="../../../assets/pin.png" alt="location pin">
-            <span>Minsk</span>
+            <img src="../../../assets/pin.svg" alt="location pin">
+            <span>{{ getLocation() }}</span>
         </div>
-        <div class="info-payment">
-            <img (click)="showPayment()" src="../../../assets/arrow-down.png" alt="down arrow">
-            <span>Payment Methods</span>
+        <div class="info-payment" (click)="showPayment()">
+            <img (click)="showPayment()" src="../../../assets/down-arrow.svg" alt="down arrow">
+            <span>Способы оплаты</span>
             <ul (mouseleave)="showPayment()" class="drop-menu" [class.disabled]="paymentTrigger">
                 <li>Оплата частями</li>
                 <li>Бонусная программа</li>
@@ -15,15 +15,44 @@
                 <li>Самовывоз</li>
             </ul>
         </div>
-        <div class="info-contacts">
-            <img (click)="showContacts()" src="../../../assets/arrow-down.png" alt="down arrow">
-            <span>Contact Us</span>
+        <div class="info-contacts" (click)="showContacts()">
+            <img class="info-contacts" src="../../../assets/down-arrow.svg"  alt="down arrow">
+            <span>Наши контакты</span>
             <ul (mouseleave)="showContacts()" class="drop-menu" [class.disabled]="contactTrigger">
-                <li>Оплата частями</li>
-                <li>Бонусная программа</li>
-                <li>Оплата</li>
-                <li>Доставка</li>
-                <li>Самовывоз</li>
+                <li>
+                    <a class="li-a" href="tel:375293021021">
+                        <div class="img">
+                            <img src="../../../assets/a1-logo.png" alt="a1 logo">
+                        </div>
+                        <span>
+                            +375-29-302-10-21
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="li-a" href="tel:375293021021">
+                        <img class="svg" src="../../../assets/phone.svg" alt="a1 logo">
+                        <span>
+                            +375-29-302-10-21
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="li-a" href="tel:375293021021">
+                        <img class="svg" src="../../../assets/telegram.svg" alt="a1 logo">
+                        <span>
+                            +375-29-302-10-21
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="li-a" href="tel:375293021021">
+                        <img class="svg" src="../../../assets/mail.svg" alt="a1 logo">
+                        <span>
+                            Почта
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

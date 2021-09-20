@@ -7,7 +7,7 @@ import { GoodsItem } from "../models/goodsItem";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -19,6 +19,7 @@ import { Store21 } from "./store.model";
         sliderItems: [],
         popularItems: [[]],
         pageData: [],
+        searchItems: [],
         currentPageItem: {},
         currentCat: '',
         currentSubCat: '',
@@ -147,12 +148,22 @@ export class StoreState {
         this.http.getOneGood(item.id)
             .subscribe((res) => {
                 const resItem = res as GoodsItem;
-                console.log(resItem.category);
-                console.log(resItem.subCategory);
                 patchState({
                     currentPageItem: resItem,
                     currentCat: resItem.category,
                     currentSubCat: resItem.subCategory,
+                })
+                getState().categories.forEach((catE) => {
+                    if (catE.id === getState().currentCat) {
+                        catE.subCategories.forEach((subE) => {
+                            if(subE.id === getState().currentSubCat) {
+                                patchState({
+                                    currentCatName: catE.name,
+                                    currentSubCatName: subE.name
+                                })
+                            }
+                        })
+                    }
                 })
             })
     }
@@ -182,7 +193,6 @@ export class StoreState {
         this.http.getUserInfo(userToken)
             .subscribe((response) => {
                 const userData = response as UserData[];
-                console.log('res = ', response);
                 patchState({
                     userData: userData[0],
                     totalPrice: 0
@@ -235,7 +245,6 @@ export class StoreState {
             this.http.getOneGood(e)
                 .subscribe((res) => {
                     const newItem = res as GoodsItem;
-                    console.log(res);
                     const oldFavorGoods = getState().favorUserItems as GoodsItem[];
                     const newFavorGoods = [...oldFavorGoods, newItem];
                     patchState({
@@ -315,7 +324,6 @@ export class StoreState {
             e.value = 1;
             e.sumForCurGood = e.price;
             totalPrice = totalPrice + e.price;
-            console.log(e.price);
         });
         patchState({
             cartUserItems: itemsInCart,
@@ -347,6 +355,17 @@ export class StoreState {
             cartUserItems: itemsInCart,
             totalPrice: totalPrice
         })
+    }
+
+    @Action(FindWithSearch)
+    findWithSearch({ patchState, getState }: StateContext<Store21>, { text }: FindWithSearch) {
+        this.http.search(text)
+            .subscribe((res) => {
+                const searchRes = JSON.parse(res) as GoodsItem[]; 
+                patchState({
+                    searchItems: [...searchRes]
+                })
+            });
     }
 
     @Selector() 
@@ -421,6 +440,11 @@ export class StoreState {
     public static cartItems(state: Store21): GoodsItem[] {
         const item = state.cartUserItems as GoodsItem[];
         return item;
+    }
+
+    @Selector() 
+    public static getSearchItems(state: Store21): GoodsItem[] {
+        return state.searchItems;
     }
 
     @Selector() 

@@ -143,4 +143,15 @@ export class HttpService {
     });
   }
 
+  search(text: string) {
+    const userToken = window.localStorage.getItem('userToken');
+    return this.http.get(`https:/angular-shops.herokuapp.com/goods/search?text=${text}`, { 
+      responseType: 'text',
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${userToken}`,
+        'Content-Type': 'application/json',
+      })
+    });
+  }
+
 }

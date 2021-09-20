@@ -3,6 +3,9 @@
         <div class="big-cat">
             <h2>Категории</h2>
             <div class="cat" *ngFor="let item of categories$ | async" (mouseenter)="select(item.id)">
+                <div class="cat-img">
+                    <img src="../../../assets/{{item.id}}.svg" alt="">
+                </div>
                 <span>
                     {{ item.name }}
                 </span>

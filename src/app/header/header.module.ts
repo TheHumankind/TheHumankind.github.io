@@ -5,6 +5,7 @@ import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { HeaderInfoComponent } from './header-info/header-info.component';
 import { HeaderCatNavComponent } from './header-cat-nav/header-cat-nav.component';
 import { BigMenuComponent } from './big-menu/big-menu.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,9 +14,10 @@ import { BigMenuComponent } from './big-menu/big-menu.component';
     HeaderNavComponent,
     HeaderInfoComponent,
     HeaderCatNavComponent,
-    BigMenuComponent
+    BigMenuComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule
   ],
   exports: [

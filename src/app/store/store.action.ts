@@ -73,3 +73,8 @@ export class CountManage {
     static readonly type = '[STORE] Managing for count of goods in cart';
 }
 
+export class FindWithSearch {
+    constructor(public text: string) {}
+    static readonly type = '[STORE] Find item with search';
+}
+

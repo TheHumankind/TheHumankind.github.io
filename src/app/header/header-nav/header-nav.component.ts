@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { GoodsItem } from 'src/app/models/goodsItem';
 import { UserData } from 'src/app/models/userData';
-import { GetUserData, LoadItems, SelectedCategory, SetCountOfGoods } from 'src/app/store/store.action';
+import { HttpService } from 'src/app/services/http.service';
+import { CurrentGood, FindWithSearch, GetUserData, LoadItems, SelectedCategory, SetCountOfGoods } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -13,16 +15,28 @@ import { StoreState } from 'src/app/store/store.state';
 })
 export class HeaderNavComponent {
 
+  searchInput: string;
+
+  calls: number;
+
+  searchVisability: boolean;
+
   accountMenu = false;
 
   basketMenu = false;
 
   bigMenu = false;
 
+  searchItems$: Observable<GoodsItem[]>
+
   userData$: Observable<UserData>;
 
-  constructor(public store: Store, public router: Router) { 
+  constructor(public store: Store, public router: Router, public http: HttpService) { 
     this.userData$ = this.store.select(StoreState.selectUserData);
+    this.searchItems$ = this.store.select(StoreState.getSearchItems);
+    this.searchVisability = false;
+    this.searchInput = '';
+    this.calls = 0;
   }
 
   switchAccount(event: Event) {
@@ -55,5 +69,32 @@ export class HeaderNavComponent {
     this.store.dispatch([
       new GetUserData(),
     ])
+  }
+
+  toItem(item: GoodsItem) {
+    this.router.navigate([`categories/${item.id}`]);
+    this.store.dispatch([
+      new CurrentGood(item)
+    ])
+  }
+
+  search() {
+    if(this.searchInput.length > 3) {
+      this.searchVisability = true;
+      const value = this.searchInput;
+      setTimeout(() => {
+        if (value === this.searchInput) {
+          this.store.dispatch([
+            new FindWithSearch(value),
+          ])
+        }
+      }, 500)
+    } else {
+      this.hideSearchList();
+    }
+  }
+
+  hideSearchList() {
+    this.searchVisability = false;
   }
 }

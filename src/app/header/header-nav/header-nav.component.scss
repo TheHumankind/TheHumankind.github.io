@@ -11,6 +11,72 @@
     align-items: center;
     column-gap: 15px;
     width: 100%;
+    
+    .search {
+        position: absolute;
+        top: 100%;
+        left: 21.7%;
+        width: 580px;
+        height: auto;
+        max-height: 320px;
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(#2d635b, .2);
+        box-shadow: 0px 0px 10px 0px rgba(#2d635b, .4);
+        color:#264566;
+        background-color: #f9f8fa;
+        box-sizing: border-box;
+        overflow-y: scroll;
+        z-index: 1000;
+
+        &::-webkit-scrollbar { width: 0; }
+
+        & { -ms-overflow-style: none; }
+
+        & { overflow: -moz-scrollbars-none; }
+
+        &-item {
+            display: flex;
+            justify-content: flex-start;
+            padding: 15px 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(#2d635b, .2);
+            box-shadow: 0px 0px 10px 0px rgba(#2d635b, .4);
+            cursor: pointer;
+        }
+
+        &-descr {
+
+            margin-left: 30px;
+
+        }
+
+        &-txt {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        &-header {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        &-img {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+
+            & > img {
+
+                max-width: 100px;
+                max-height: 100px;
+            }
+        }
+    }
 
     .button {
         position: relative;
@@ -52,7 +118,7 @@
                 margin: 5px;
                 font-size: 19px;
                 font-family: 'Yanone Kaffeesatz', sans-serif;
-                color: #FFBA73;
+                color: #264566;
 
                 & > img {
                     margin-right: 7px;
@@ -80,6 +146,11 @@
 .header-input {
     flex-grow: 1;
     width: 200px;
+    padding-left: 15px;
+    font-size: 24px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    box-sizing: border-box;
+    outline: none;
 }
 
 .fly {
@@ -92,7 +163,7 @@
     border-radius: 20px;
     padding: 20px;
     border: 1px solid rgba(#2d635b, .2);
-    background-color: #f8f8f8;
+    background-color: #f9f8fa;
     box-sizing: border-box;
     overflow: hidden;
     z-index: 1000;

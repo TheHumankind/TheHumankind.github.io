@@ -17,10 +17,17 @@
     }
 
     .cat, .subcat { 
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         width: 100%;
         margin-top: 5px;
         font-size: 20px;
         cursor: pointer;
+
+        &-img {
+            margin-right: 10px;
+        }
 
         & > span {
             
@@ -29,7 +36,7 @@
     
     .hr {
         width: 1px;
-        background-color: black;
+        background-color: rgba(#2d635b, .2);
     }
 
     &-subcat {

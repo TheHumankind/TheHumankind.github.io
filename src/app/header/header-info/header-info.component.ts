@@ -28,4 +28,14 @@ export class HeaderInfoComponent {
     this.contactTrigger = !this.contactTrigger;
   }
 
+  getLocation() {
+    let city = ''
+    if (window.localStorage.getItem('town')) {
+      city = `${window.localStorage.getItem('town')}`;
+    } else {
+      city = 'Минск';
+    }
+    return city;
+  }
+
 }
