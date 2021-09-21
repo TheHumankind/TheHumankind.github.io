@@ -6,10 +6,11 @@ import { fillSlider } from "../models/fillMainSlider";
 import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { Order } from "../models/order";
+import { sortMeByPriceFalse, sortMeByPriceTrue, sortMeByRatingFalse, sortMeByRatingTrue } from "../models/sortFunctions";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut, SortByPrice, SortByRating } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -24,6 +25,7 @@ import { Store21 } from "./store.model";
         searchItems: [],
         currentPageItem: {},
         isUserExist: true,
+        sortOrder: false,
         currentCat: '',
         currentSubCat: '',
         currentCatName: '',
@@ -417,6 +419,44 @@ export class StoreState {
             favorUserItems: [],
             cartUserItems: []
         });
+    }
+
+    @Action(SortByPrice)
+    sortByPrice({ patchState, getState }: StateContext<Store21>) {
+        const list = [...getState().pageData];
+        if(getState().sortOrder === false) {
+            patchState({
+                sortOrder: true,
+            })
+            list.sort((iA, iB) => sortMeByPriceTrue(iA, iB));
+        } else {
+            patchState({
+                sortOrder: false,
+            })
+            list.sort((iA, iB) => sortMeByPriceFalse(iA, iB));
+        }
+        patchState({
+            pageData: list
+        })
+    }
+
+    @Action(SortByRating)
+    sortByRating({ patchState, getState }: StateContext<Store21>) {
+        const list = [...getState().pageData];
+        if(getState().sortOrder === false) {
+            patchState({
+                sortOrder: true,
+            })
+            list.sort((iA, iB) => sortMeByRatingTrue(iA, iB));
+        } else {
+            patchState({
+                sortOrder: false,
+            })
+            list.sort((iA, iB) => sortMeByRatingFalse(iA, iB));
+        }
+        patchState({
+            pageData: list
+        })
     }
 
     @Selector() 

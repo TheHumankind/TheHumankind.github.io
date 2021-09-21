@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
       new GetUserData()
     ])
     if (this.store.selectSnapshot(StoreState.currentCategoryName) === '') {
-      this.router.navigate(['main']);
+      this.router.navigate(['categories']);
     }
     this.store.dispatch([
       new LoadItems(),

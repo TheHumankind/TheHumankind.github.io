@@ -88,6 +88,15 @@ export class RemoveOrder {
     static readonly type = '[STORE] Remove order';
 }
 
+export class SortByPrice {
+    static readonly type = '[STORE] Sort by price';
+}
+
+export class SortByRating {
+    static readonly type = '[STORE] Sort by rating';
+}
+
+
 export class LogOut {
     static readonly type = '[STORE] Log out user';
 }

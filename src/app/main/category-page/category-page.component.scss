@@ -2,6 +2,42 @@
 
     color:#264566;
 
+    &-path {
+        display: flex;
+        column-gap: 7px;
+        font-size: 18px;
+        margin-bottom: 20px;
+
+        & > .path {
+            display: block;
+            margin: 0;
+            padding: 0;
+            line-height: 18px;
+            border-bottom: 1px solid #2d635b;
+            cursor: pointer;
+            &:hover {
+                box-shadow: 0px 2px 0px 0px rgba(45, 99, 91, .2);
+            }
+        }
+    }
+
+    &-sort {
+        display: flex;
+        column-gap: 20px;
+        font-size: 20px;
+        margin-bottom: 20px;
+
+        & > span {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    }
+
+    &-header {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
     &-items__container {
         display: flex;
         justify-content: stretch;

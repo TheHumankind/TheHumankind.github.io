@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, GetUserData, IsInCart, IsInFavor, UploadCurrentPage, UploadMore } from 'src/app/store/store.action';
+import { CurrentGood, GetUserData, IsInCart, IsInFavor, SortByPrice, SortByRating, UploadCurrentPage, UploadMore } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -108,6 +108,17 @@ export class CategoryPageComponent {
     ])
   }
 
+  backToCat(category: string, subCategory: string) {
+    this.router.navigate(['categories']);
+    this.store.dispatch([
+      new UploadCurrentPage(0, category, subCategory)
+    ])
+  }
+
+  backToLead() {
+    this.router.navigate(['']);
+  }
+
   checkUrl(url: string) {
     let result = '';
     if (!url) {
@@ -160,6 +171,18 @@ export class CategoryPageComponent {
     }
     this.store.dispatch([
       new IsInCart(item)
+    ])
+  }
+
+  sortByPrice() {
+    this.store.dispatch([
+      new SortByPrice()
+    ])
+  }
+
+  sortByRating() {
+    this.store.dispatch([
+      new SortByRating()
     ])
   }
 }
