@@ -14,7 +14,7 @@ import { StoreState } from 'src/app/store/store.state';
 export class LoginComponent {
 
   login: string;
-
+  
   password: string;
 
   userData$: Observable<UserData>;
@@ -23,6 +23,10 @@ export class LoginComponent {
     this.userData$ = this.store.select(StoreState.selectUserData);
     this.login = '';
     this.password = '';
+  }
+
+  toRegistration() {
+    this.router.navigate(['registration']);
   }
 
   click() {

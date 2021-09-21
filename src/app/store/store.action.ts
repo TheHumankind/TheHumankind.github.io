@@ -96,6 +96,10 @@ export class SortByRating {
     static readonly type = '[STORE] Sort by rating';
 }
 
+export class GetAllTech {
+    static readonly type = '[STORE] Get all category tech';
+}
+
 
 export class LogOut {
     static readonly type = '[STORE] Log out user';

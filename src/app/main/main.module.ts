@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { BasketComponent } from './basket/basket.component';
 import { WaitListComponent } from './wait-list/wait-list.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
@@ -31,6 +32,7 @@ import { WaitListComponent } from './wait-list/wait-list.component';
     FavoritesComponent,
     BasketComponent,
     WaitListComponent,
+    RegistrationComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),
@@ -44,7 +46,8 @@ import { WaitListComponent } from './wait-list/wait-list.component';
     ContainerComponent,
     LoginComponent,
     FavoritesComponent,
-    BasketComponent
+    BasketComponent,
+    RegistrationComponent
   ]
 })
 export class MainModule { }

@@ -10,7 +10,7 @@ import { sortMeByPriceFalse, sortMeByPriceTrue, sortMeByRatingFalse, sortMeByRat
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut, SortByPrice, SortByRating } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut, SortByPrice, SortByRating, GetAllTech } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -217,6 +217,11 @@ export class StoreState {
                     new GetAllCartData()
                 ]);
             })
+    }
+
+    @Action(GetAllTech)
+    getAllTech({ patchState, dispatch, getState }: StateContext<Store21>) { 
+        
     }
 
     @Action(IsInFavor)

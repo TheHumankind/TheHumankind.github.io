@@ -167,4 +167,17 @@ export class HttpService {
     });
   }
 
+  register(login: string, password: string, name: string, sName: string) {
+    const data = {
+      firstName: name,
+      lastName: sName,
+      login: login,
+      password: password
+    }
+    this.http.post(`https:/angular-shops.herokuapp.com/users/register`, data, { 
+    }).subscribe((res) => {
+      console.log('post user cart', res);
+    })
+  }
+
 }

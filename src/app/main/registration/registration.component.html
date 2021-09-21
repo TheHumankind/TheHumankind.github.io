@@ -1,0 +1,38 @@
+<div class="login">
+    <form class="form">
+        <h3 class="form-header">Регистрация</h3>   
+        <label class="form-label">
+            Имя
+            <input class="form-input" type="text" name="name" [(ngModel)]="name">
+        </label>
+        <label class="form-label">
+            Фамилия
+            <input class="form-input" type="text" name="secondName" [(ngModel)]="secondName">
+        </label>
+        <label class="form-label">
+            Логин
+            <input class="form-input" (input)="inputLogin()" [class.active]="logStat" type="text" name="login" [(ngModel)]="login">
+        </label>
+        <label class="form-label">
+            Пароль
+            <input class="form-input" (input)="inputPassword()" [class.active]="passStat" type="text" name="password" [(ngModel)]="password">
+        </label>
+        <label class="form-label">
+            Повтори пароль
+            <input class="form-input" (input)="inputPassword()" [class.active]="passStat" type="text" name="passwordCheck" [(ngModel)]="passwordCheck">
+        </label>
+        <div class="form-footer">
+            <button class="button" (click)="toLogIn()">
+                <span class="text">
+                    Войти
+                </span>    
+            </button>
+            <button class="button" (click)="click()">
+                <span class="text">
+                    Зарегистрироваться
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
+
