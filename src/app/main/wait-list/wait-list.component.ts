@@ -23,5 +23,4 @@ export class WaitListComponent {
       new RemoveOrder(item)
     ])
   }
-
 }

@@ -30,11 +30,4 @@ export class LoginComponent {
       new GetUserData()
     ])
   }
-
-  dblClick() {
-    this.store.dispatch([
-      
-    ])
-  }
-
 }

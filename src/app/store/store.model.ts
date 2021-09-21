@@ -14,6 +14,7 @@ export interface Store21 {
     favorUserItems: GoodsItem[],
     cartUserItems: GoodsItem[],
     searchItems: GoodsItem[],
+    isUserExist: boolean,
     currentCat: string,
     currentSubCat: string,
     currentCatName: string,

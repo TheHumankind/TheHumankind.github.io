@@ -8,7 +8,7 @@ import { Order } from "../models/order";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -22,6 +22,7 @@ import { Store21 } from "./store.model";
         pageData: [],
         searchItems: [],
         currentPageItem: {},
+        isUserExist: false,
         currentCat: '',
         currentSubCat: '',
         currentCatName: '',
@@ -170,7 +171,11 @@ export class StoreState {
     }
 
     @Action(LoginUser)
-    loginUser({ patchState }: StateContext<Store21>, { login, password }: LoginUser) {
+    loginUser({ patchState, getState }: StateContext<Store21>, { login, password }: LoginUser) {
+        patchState({
+            isUserExist: true,
+        })
+        console.log(getState().isUserExist);
         this.http.getUserToken(login, password)
             .subscribe((res) => {
                 const token = res as UserToken;
@@ -188,9 +193,15 @@ export class StoreState {
     }
 
     @Action(GetUserData)
-    getUserData({ patchState, dispatch, getState }: StateContext<Store21>) {
+    getUserData({ patchState, dispatch, getState }: StateContext<Store21>) { 
         const userToken = window.localStorage.getItem('userToken');
-        if (!userToken) return;
+        if (!userToken) {
+            patchState({
+                isUserExist: false,
+            })
+            return;
+        }
+        console.log(getState().isUserExist);
         this.http.getUserInfo(userToken)
             .subscribe((response) => {
                 const userData = response as UserData[];
@@ -396,6 +407,17 @@ export class StoreState {
         })
     }
 
+    @Action(LogOut)
+    logOut({ patchState }: StateContext<Store21>) {
+        window.localStorage.removeItem('userToken');
+        patchState({
+            isUserExist: true,
+            userData: undefined,
+            favorUserItems: [],
+            cartUserItems: []
+        });
+    }
+
     @Selector() 
     public static categories(state: Store21): Categories[] {
         return state.categories;
@@ -489,5 +511,10 @@ export class StoreState {
         } else {
             return [];
         }
+    }
+
+    @Selector() 
+    public static userStatus(state: Store21): boolean {
+        return state.isUserExist
     }
 }

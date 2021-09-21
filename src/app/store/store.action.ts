@@ -88,3 +88,7 @@ export class RemoveOrder {
     static readonly type = '[STORE] Remove order';
 }
 
+export class LogOut {
+    static readonly type = '[STORE] Log out user';
+}
+

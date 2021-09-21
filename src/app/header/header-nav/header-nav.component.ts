@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { GoodsItem } from 'src/app/models/goodsItem';
 import { UserData } from 'src/app/models/userData';
 import { HttpService } from 'src/app/services/http.service';
-import { CurrentGood, FindWithSearch, GetUserData, LoadItems, SelectedCategory, SetCountOfGoods } from 'src/app/store/store.action';
+import { CurrentGood, FindWithSearch, GetUserData, LoadItems, LogOut, SelectedCategory, SetCountOfGoods } from 'src/app/store/store.action';
 import { StoreState } from 'src/app/store/store.state';
 
 @Component({
@@ -27,6 +27,8 @@ export class HeaderNavComponent {
 
   bigMenu = false;
 
+  userStatus$: Observable<boolean>;
+
   searchItems$: Observable<GoodsItem[]>
 
   userData$: Observable<UserData>;
@@ -34,6 +36,7 @@ export class HeaderNavComponent {
   constructor(public store: Store, public router: Router, public http: HttpService) { 
     this.userData$ = this.store.select(StoreState.selectUserData);
     this.searchItems$ = this.store.select(StoreState.getSearchItems);
+    this.userStatus$ = this.store.select(StoreState.userStatus);
     this.searchVisability = false;
     this.searchInput = '';
     this.calls = 0;
@@ -58,6 +61,10 @@ export class HeaderNavComponent {
   }
 
   toFavor() {
+    if(!window.localStorage.getItem('userToken')) {
+      alert('Зарегиструйся, Братан');
+      return;
+    }
     this.router.navigate(['favorites']);
     this.store.dispatch([
       new GetUserData()
@@ -65,6 +72,10 @@ export class HeaderNavComponent {
   }
 
   toBasket() {
+    if(!window.localStorage.getItem('userToken')) {
+      alert('Зарегиструйся, Братан');
+      return;
+    }
     this.router.navigate(['basket']);
     this.store.dispatch([
       new GetUserData(),
@@ -72,6 +83,10 @@ export class HeaderNavComponent {
   }
 
   toWait() {
+    if(!window.localStorage.getItem('userToken')) {
+      alert('Зарегиструйся, Братан');
+      return;
+    }
     this.router.navigate(['wait']);
     this.store.dispatch([
       new GetUserData(),
@@ -103,5 +118,12 @@ export class HeaderNavComponent {
 
   hideSearchList() {
     this.searchVisability = false;
+  }
+
+  logOut() {
+    this.router.navigate(['main']);
+    this.store.dispatch([
+      new LogOut()
+    ])
   }
 }
