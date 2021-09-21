@@ -18,11 +18,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(window.localStorage.getItem('userToken')) {
-      this.store.dispatch([
-        new GetUserData()
-      ])
-    }
+    this.store.dispatch([
+      new GetUserData()
+    ])
     if (this.store.selectSnapshot(StoreState.currentCategoryName) === '') {
       this.router.navigate(['wait']);
     }

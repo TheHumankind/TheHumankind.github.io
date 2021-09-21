@@ -22,7 +22,7 @@ import { Store21 } from "./store.model";
         pageData: [],
         searchItems: [],
         currentPageItem: {},
-        isUserExist: false,
+        isUserExist: true,
         currentCat: '',
         currentSubCat: '',
         currentCatName: '',
@@ -196,10 +196,11 @@ export class StoreState {
     getUserData({ patchState, dispatch, getState }: StateContext<Store21>) { 
         const userToken = window.localStorage.getItem('userToken');
         if (!userToken) {
+            return;
+        } else {
             patchState({
                 isUserExist: false,
             })
-            return;
         }
         console.log(getState().isUserExist);
         this.http.getUserInfo(userToken)
