@@ -1,13 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
-import { UserToken } from '../models/userToken';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngxs/store';
 import { Item, Order } from '../models/order';
 import { StoreState } from '../store/store.state';
-
-@Injectable({
-  providedIn: 'root'
-})
 
 export class HttpService {
 
@@ -52,7 +46,8 @@ export class HttpService {
     this.http.post(`https:/angular-shops.herokuapp.com/users/favorites`, data, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
-      })
+      }),
+
     }).subscribe((res) => {
       console.log(res);
     })
