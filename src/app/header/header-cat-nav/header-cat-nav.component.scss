@@ -17,7 +17,7 @@
             & > hr {
                 width: auto;
                 max-width: 100%;
-                border: 1px solid rgba(#2d635b, .2);
+                border: 1px solid rgba(#2d635b, .8);
             }
         }
     }
@@ -26,7 +26,7 @@
 .hr-decor {
     max-width: 0;
     border: 0px solid;
-    border-color: #FFBA73;
+    border-color: #2d635b;
     margin: 0;
     transition: .2s;
 }
