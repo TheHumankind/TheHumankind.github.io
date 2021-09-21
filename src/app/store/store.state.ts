@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { Categories } from "../models/categories";
 import { fillSlider } from "../models/fillMainSlider";
@@ -37,7 +38,7 @@ import { Store21 } from "./store.model";
 
 @Injectable()
 export class StoreState {
-    constructor(public http: HttpService) { }
+    constructor(public http: HttpService, public router: Router) { }
 
     @Action(LoadItems)
     loadItems({ patchState, getState }: StateContext<Store21>) {
@@ -173,9 +174,8 @@ export class StoreState {
     @Action(LoginUser)
     loginUser({ patchState, getState }: StateContext<Store21>, { login, password }: LoginUser) {
         patchState({
-            isUserExist: true,
-        })
-        console.log(getState().isUserExist);
+            isUserExist: false,
+        })    
         this.http.getUserToken(login, password)
             .subscribe((res) => {
                 const token = res as UserToken;
