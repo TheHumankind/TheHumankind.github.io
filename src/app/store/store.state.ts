@@ -229,6 +229,9 @@ export class StoreState {
                 const data = {...pageData[i]};
                 data.isFavorite = !data.isFavorite;
                 pageData[i] = data;
+                patchState({
+                    currentPageItem: data,
+                })
             }
         } 
         patchState({
@@ -301,6 +304,9 @@ export class StoreState {
                 const data = {...pageData[i]};
                 data.isInCart = !data.isInCart;
                 pageData[i] = data;
+                patchState({
+                    currentPageItem: data,
+                })
             }
         } 
         patchState({

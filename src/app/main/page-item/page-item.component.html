@@ -23,13 +23,23 @@
         </span>
     </div>
     <h2 class="good-header">
-        {{ item.name }}
+        <span>
+            {{ item.name }}
+        </span>
+        <div class="good-header__btns">
+            <button class="button" (click)="isBasket(item, item.id, item.isInCart)" [class.active]="item.isInCart">
+                <img src="../../../assets/shopping-cart.svg" alt="">
+            </button>
+            <button class="button" (click)="isFavor(item, item.id, item.isFavorite)" [class.active]="item.isFavorite">
+                <img src="../../../assets/heart.svg" alt="">
+            </button>
+        </div>
     </h2>
     <div class="good-images__container">
         <div class="good-images__menu">
             <div class="good-images__menu-header">
-                <div class="mini-img" *ngFor="let image of item.imageUrls">
-                    <img (click)="changeBigImg(image)" src="{{image}}" alt="">
+                <div class="mini-img" (click)="changeBigImg(image)" *ngFor="let image of item.imageUrls">
+                    <img src="{{image}}" alt="">
                 </div>
             </div>
             <div class="big-img">
@@ -38,6 +48,24 @@
         </div>
     </div>
     <div>
+        <div class="good-stats">
+            <div class="good-price">
+                <span>Цена: {{ item.price }} руб.</span>
+            </div>
+            <div class="good-price">
+                <span>Рейтинг:</span>
+                <img src="{{firstStar(item.rating)}}" alt="">
+                <img src="{{secondStar(item.rating)}}" alt="">
+                <img src="{{thirdStar(item.rating)}}" alt="">
+                <img src="{{fourStar(item.rating)}}" alt="">
+                <img src="{{fiveStar(item.rating)}}" alt="">
+            </div>
+            <div class="good-price">
+                <span>
+                    Доступно к заказу: {{ item.availableAmount }}
+                </span>
+            </div>
+        </div>
         <h3 class="good-header__descr">
             Описание:
         </h3>
