@@ -25,6 +25,7 @@ import 'hammerjs';
     HeaderModule,
     HttpClientModule,
     FooterModule,
+    HttpClientModule,
     NgxsModule.forRoot([StoreState], {
       developmentMode: !environment.production
     }),

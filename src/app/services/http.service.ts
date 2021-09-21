@@ -1,8 +1,13 @@
+import { coerceStringArray } from '@angular/cdk/coercion';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Item, Order } from '../models/order';
 import { StoreState } from '../store/store.state';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class HttpService {
 
   constructor(private http: HttpClient, private store: Store) { }
@@ -43,13 +48,11 @@ export class HttpService {
     const data = {
       id: id
     }
-    this.http.post(`https:/angular-shops.herokuapp.com/users/favorites`, data, { 
+    this.http.post(`https://angular-shops.herokuapp.com/users/favorites`, data, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       }),
-
     }).subscribe((res) => {
-      console.log(res);
     })
   }
 
@@ -58,7 +61,7 @@ export class HttpService {
     const data = {
       id: id
     }
-    this.http.delete(`https:/angular-shops.herokuapp.com/users/favorites?id=${data.id}`, { 
+    return this.http.delete(`https://angular-shops.herokuapp.com/users/favorites?id=${data.id}`, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
@@ -81,7 +84,7 @@ export class HttpService {
     const data = {
       id: id
     }
-    this.http.post(`https:/angular-shops.herokuapp.com/users/cart`, data, { 
+    return this.http.post(`https://angular-shops.herokuapp.com/users/cart`, data, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
@@ -95,7 +98,7 @@ export class HttpService {
     const data = {
       id: id
     }
-    this.http.delete(`https:/angular-shops.herokuapp.com/users/cart?id=${data.id}`, { 
+    return this.http.delete(`https://angular-shops.herokuapp.com/users/cart?id=${data.id}`, { 
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
       })
@@ -128,7 +131,7 @@ export class HttpService {
       }
     })
     console.log(orderData);
-    this.http.post(`https:/angular-shops.herokuapp.com/users/order`, orderData, { 
+    return this.http.post(`https://angular-shops.herokuapp.com/users/order`, orderData, { 
       responseType: 'text',
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
@@ -140,7 +143,7 @@ export class HttpService {
 
   search(text: string) {
     const userToken = window.localStorage.getItem('userToken');
-    return this.http.get(`https:/angular-shops.herokuapp.com/goods/search?text=${text}`, { 
+    return this.http.get(`https://angular-shops.herokuapp.com/goods/search?text=${text}`, { 
       responseType: 'text',
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
@@ -151,7 +154,7 @@ export class HttpService {
 
   removeOrder(id: string) {
     const userToken = window.localStorage.getItem('userToken');
-    this.http.delete(`https:/angular-shops.herokuapp.com/users/order?id=${id}`, { 
+    return this.http.delete(`https://angular-shops.herokuapp.com/users/order?id=${id}`, { 
       responseType: 'text',
       headers: new HttpHeaders({
         'Authorization': `Bearer ${userToken}`,
@@ -169,7 +172,7 @@ export class HttpService {
       login: login,
       password: password
     }
-    this.http.post(`https:/angular-shops.herokuapp.com/users/register`, data, { 
+    return this.http.post(`https://angular-shops.herokuapp.com/users/register`, data, { 
     }).subscribe((res) => {
       console.log('post user cart', res);
     })
