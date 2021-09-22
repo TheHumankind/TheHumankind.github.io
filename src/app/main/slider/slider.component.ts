@@ -34,8 +34,7 @@ export class SliderComponent {
   }
 
   toItem(id: string, item: GoodsItem) {
-    const link = `categories/${id}`;
-    this.router.navigate([link]);
+    this.router.navigate([`categories/${item.id}`]);
     this.store.dispatch([
       new CurrentGood(item)
     ])

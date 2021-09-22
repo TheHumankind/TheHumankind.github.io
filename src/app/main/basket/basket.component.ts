@@ -95,7 +95,6 @@ export class BasketComponent {
     const eDate = new Date();
     mDate.setHours(10);
     eDate.setHours(23);
-    console.log(+this.time.split(':')[0]);
     if (+this.time.split(':')[0] >= mDate.getHours() && +this.time.split(':')[0] <= eDate.getHours()) {
       this.timeStat = false;
     } else {
@@ -118,7 +117,8 @@ export class BasketComponent {
 
   sendOrder() {
     if (!this.timeStat && !this.dateStat && !this.fioStat && !this.phoneStat && !this.adressStat) {
-      this.http.sendOrder(this.fio, this.adress, this.phone, this.date, this.comment);
+      const data = new Date(`${this.time} ${this.date}`);
+      this.http.sendOrder(this.fio, this.adress, this.phone, data.toString(), this.comment);
       this.store.dispatch([
         new ClearUserOrder()
       ])

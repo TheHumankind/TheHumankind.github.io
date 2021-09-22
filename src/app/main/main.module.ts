@@ -15,6 +15,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { BasketComponent } from './basket/basket.component';
 import { WaitListComponent } from './wait-list/wait-list.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { SubCatsPageComponent } from './sub-cats-page/sub-cats-page.component';
 
 
 
@@ -33,6 +34,7 @@ import { RegistrationComponent } from './registration/registration.component';
     BasketComponent,
     WaitListComponent,
     RegistrationComponent,
+    SubCatsPageComponent,
   ],
   imports: [
     MatCarouselModule.forRoot(),

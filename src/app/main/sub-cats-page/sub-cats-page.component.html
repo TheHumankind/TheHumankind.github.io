@@ -1,0 +1,19 @@
+<div class="subcat">   
+    <div class="subcat-header"> {{ currentCatName$ | async }} </div>
+    <div class="subcat-path">
+        <span class="path" (click)="toLead()">
+            Главная
+        </span>
+        <span>
+            >
+        </span>
+        <span class="path">
+            {{ currentCatName$ | async }}
+        </span>
+    </div>
+    <div class="subcat-menu">
+        <div class="subcat-point" *ngFor="let item of selCat$ | async" (click)="toCategory(item.id)">
+            {{ item.name }}
+        </div>
+    </div>
+</div>

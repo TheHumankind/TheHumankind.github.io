@@ -52,7 +52,7 @@ export class PageItemComponent implements OnInit {
     const token = window.localStorage.getItem('userToken');
 
     if(!token) {
-      alert('Зарегайся, тварь');
+      alert('Зарегайся, братан');
       return;
     } 
 
@@ -109,9 +109,10 @@ export class PageItemComponent implements OnInit {
 
   isBasket(item: GoodsItem, id: string, isInCart: boolean) {
     const token = window.localStorage.getItem('userToken');
-
+    console.log('click');
+    console.log(isInCart);
     if(!token) {
-      alert('Зарегайся, тварь');
+      alert('Зарегайся, братан');
       return;
     } 
 

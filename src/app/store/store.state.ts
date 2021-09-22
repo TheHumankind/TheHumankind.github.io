@@ -7,10 +7,11 @@ import { fillPopular } from "../models/fillPopular";
 import { GoodsItem } from "../models/goodsItem";
 import { Order } from "../models/order";
 import { sortMeByPriceFalse, sortMeByPriceTrue, sortMeByRatingFalse, sortMeByRatingTrue } from "../models/sortFunctions";
+import { SubCategories } from "../models/subCategories";
 import { UserData } from "../models/userData";
 import { UserToken } from "../models/userToken";
 import { HttpService } from "../services/http.service";
-import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut, SortByPrice, SortByRating, GetAllTech } from "./store.action";
+import { CountManage, CurrentGood, DeleteFavor, DeleteFromCart, FindWithSearch, GetAllCartData, GetAllFavorData, GetUserData, IsInCart, IsInFavor, LoadItems, LoginUser, ResetPages, SelectedCategory, SetCountOfGoods, UploadCurrentPage, UploadMore, ClearUserOrder, RemoveOrder, LogOut, SortByPrice, SortByRating, GetAllTech, SelectCat } from "./store.action";
 import { Store21 } from "./store.model";
 
 @State<Store21> ({
@@ -23,6 +24,7 @@ import { Store21 } from "./store.model";
         popularItems: [[]],
         pageData: [],
         searchItems: [],
+        subCategores: [],
         currentPageItem: {},
         isUserExist: true,
         sortOrder: false,
@@ -74,10 +76,24 @@ export class StoreState {
         for(let i = 0; i < cat.length; i++) {
             if(cat[i].id === id) {
                 patchState({
+                    currentCatName: cat[i].name,
                     selectedCategory: cat[i],
                 })
             }
         }
+    }
+
+    @Action(SelectCat)
+    selectCat({ patchState, getState }: StateContext<Store21>, { id }: SelectCat) {
+        const category = getState().categories;
+        category.forEach((e) => {
+            if(e.id === id) {
+                patchState({
+                    currentSubCatName: e.name,
+                    subCategores: e.subCategories
+                });
+            }
+        })
     }
 
     @Action(UploadMore)
@@ -157,7 +173,8 @@ export class StoreState {
                     currentPageItem: resItem,
                     currentCat: resItem.category,
                     currentSubCat: resItem.subCategory,
-                })
+                });
+                console.log(resItem);
                 getState().categories.forEach((catE) => {
                     if (catE.id === getState().currentCat) {
                         catE.subCategories.forEach((subE) => {
@@ -204,7 +221,6 @@ export class StoreState {
                 isUserExist: false,
             })
         }
-        console.log(getState().isUserExist);
         this.http.getUserInfo(userToken)
             .subscribe((response) => {
                 const userData = response as UserData[];
@@ -301,6 +317,7 @@ export class StoreState {
 
     @Action(IsInCart)
     isInCart({ patchState, getState }: StateContext<Store21>, { item }: IsInFavor) {
+        
         const newItem: GoodsItem = {...item};
         let i;
         const pageData = [...getState().pageData];
@@ -568,5 +585,10 @@ export class StoreState {
     @Selector() 
     public static userStatus(state: Store21): boolean {
         return state.isUserExist
+    }
+
+    @Selector() 
+    public static selectSubCat(state: Store21): SubCategories[] {
+        return state.subCategores
     }
 }

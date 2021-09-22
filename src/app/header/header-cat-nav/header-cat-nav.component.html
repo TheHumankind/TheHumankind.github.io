@@ -3,7 +3,7 @@
         Наш хабар:
     </div>
     <div class="container">
-        <div class="unselectable categories-point" *ngFor="let item of cat$ | async" [attr.data-cat]="item.id">
+        <div class="unselectable categories-point" *ngFor="let item of cat$ | async" (click)="toSubCat(item.id)">
             {{item.name}}
             <hr class="hr-decor">
         </div>

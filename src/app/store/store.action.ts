@@ -10,6 +10,12 @@ export class SelectedCategory {
     static readonly type = '[STORE] Select in big menu';
 }
 
+export class SelectCat {
+    constructor(public id: string) {}
+    static readonly type = '[STORE] Select cat';
+}
+
+
 export class DeleteFavor {
     constructor(public id: string) {}
     static readonly type = '[STORE] Delete favor';

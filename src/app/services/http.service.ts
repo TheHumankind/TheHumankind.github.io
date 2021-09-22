@@ -66,7 +66,6 @@ export class HttpService {
         'Authorization': `Bearer ${userToken}`,
       })
     }).subscribe((res) => {
-      console.log(res);
     })
   }
 
@@ -89,7 +88,6 @@ export class HttpService {
         'Authorization': `Bearer ${userToken}`,
       })
     }).subscribe((res) => {
-      console.log('post user cart', res);
     })
   }
 
@@ -103,7 +101,6 @@ export class HttpService {
         'Authorization': `Bearer ${userToken}`,
       })
     }).subscribe((res) => {
-      console.log('delete user cart', res);
     })
   }
 
@@ -130,7 +127,6 @@ export class HttpService {
         orderData.items.push(orderItem);
       }
     })
-    console.log(orderData);
     return this.http.post(`https://angular-shops.herokuapp.com/users/order`, orderData, { 
       responseType: 'text',
       headers: new HttpHeaders({
@@ -161,7 +157,6 @@ export class HttpService {
         'Content-Type': 'application/json',
       })
     }).subscribe((res) => {
-      console.log(res);
     });
   }
 
@@ -174,7 +169,6 @@ export class HttpService {
     }
     return this.http.post(`https://angular-shops.herokuapp.com/users/register`, data, { 
     }).subscribe((res) => {
-      console.log('post user cart', res);
     })
   }
 

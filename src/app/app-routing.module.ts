@@ -7,6 +7,7 @@ import { HomeComponent } from './main/home/home.component';
 import { LoginComponent } from './main/login/login.component';
 import { PageItemComponent } from './main/page-item/page-item.component';
 import { RegistrationComponent } from './main/registration/registration.component';
+import { SubCatsPageComponent } from './main/sub-cats-page/sub-cats-page.component';
 import { WaitListComponent } from './main/wait-list/wait-list.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'basket', component: BasketComponent },
   { path: 'main', redirectTo: '' },
   { path: 'wait', component: WaitListComponent },
+  { path: 'cat-menu', component: SubCatsPageComponent },
   { path: 'registration', component: RegistrationComponent }
 ];
 

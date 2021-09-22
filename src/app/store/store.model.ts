@@ -1,12 +1,14 @@
 import { Categories } from "../models/categories";
 import { GoodsItem } from "../models/goodsItem";
+import { SubCategories } from "../models/subCategories";
 import { UserData } from "../models/userData";
 
 export interface Store21 {
     categories: Categories[],
     selectedCategory: {},
     goods: {},
-    sliderItems: GoodsItem[]
+    sliderItems: GoodsItem[],
+    subCategores: SubCategories[],
     popularItems: [GoodsItem[]],
     pageData: GoodsItem[],
     currentPageItem: {} | GoodsItem,

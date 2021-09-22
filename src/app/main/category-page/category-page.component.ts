@@ -46,6 +46,10 @@ export class CategoryPageComponent {
     }
   }
 
+  toSubCat() {
+    this.router.navigate(['cat-menu']);
+  }
+
   secondStar(rating: number) {
     if (rating >= 2) {
       return '../../../assets/star-fill.png';
@@ -141,7 +145,7 @@ export class CategoryPageComponent {
     const token = window.localStorage.getItem('userToken');
 
     if(!token) {
-      alert('Зарегайся, тварь');
+      alert('Зарегайся, братан');
       return;
     } 
 
@@ -160,7 +164,7 @@ export class CategoryPageComponent {
     const token = window.localStorage.getItem('userToken');
 
     if(!token) {
-      alert('Зарегайся, тварь');
+      alert('Зарегайся, братан');
       return;
     } 
 

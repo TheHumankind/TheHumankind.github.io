@@ -133,7 +133,7 @@ export class FavoritesComponent {
     const token = window.localStorage.getItem('userToken');
 
     if(!token) {
-      alert('Зарегайся, тварь');
+      alert('Зарегайся, братан');
       return;
     } 
     this.http.deleteFavor(id);    
